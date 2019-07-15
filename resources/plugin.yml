@@ -9,5 +9,7 @@ commands:
     usage: /savekit
   kit:
     usage: /kit <name>
+  debug:
+    usage: /kit <name>
   kits:
     usage: /kits
