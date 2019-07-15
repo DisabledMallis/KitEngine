@@ -1,0 +1,13 @@
+name: KitEngine
+version: 1.0
+description: An open sourced kit plugin
+author: Mallis
+main: com.DisabledMallis.KitEngine.Main
+api-version: 1.14
+commands:
+  savekit:
+    usage: /savekit
+  kit:
+    usage: /kit <name>
+  kits:
+    usage: /kits
