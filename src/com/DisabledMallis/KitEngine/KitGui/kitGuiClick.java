@@ -7,11 +7,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import com.DisabledMallis.KitEngine.Log;
+import com.DisabledMallis.KitEngine.Language.Lang;
 
 public class kitGuiClick implements Listener{
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
-		if(e.getView().getTitle().equals("§aKits")) {
+		if(e.getView().getTitle().equals(new Lang().getText("gui.title"))) {
 			e.setCancelled(true);
 			if(e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR || !e.getCurrentItem().hasItemMeta()) {
 				return;

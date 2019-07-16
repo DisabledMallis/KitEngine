@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.DisabledMallis.KitEngine.Main;
+import com.DisabledMallis.KitEngine.Language.Lang;
 
 public class KitData {
 	Main plugin = (Main) Bukkit.getPluginManager().getPlugin("KitEngine");
@@ -54,7 +55,7 @@ public class KitData {
 		fc.set(kitName + ".Contents", contents);
 		try {
 			fc.save(fcf);
-			p.sendMessage("§aSaved kit!");
+			p.sendMessage(new Lang().getText("kit.saved"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -69,11 +70,11 @@ public class KitData {
 				ItemStack[] contents = new ItemStack[getContents().size()];
 				getContents().toArray(contents);
 				p.getInventory().setContents(contents);
-				p.sendMessage("§aLoaded kit!");
+				p.sendMessage(new Lang().getText("kit.loaded"));
 			}
 		}
 		catch (NullPointerException e) {
-			p.sendMessage("§cThat kit does not exist!");
+			p.sendMessage(new Lang().getText("kit.missing"));
 		}
 	}
 	

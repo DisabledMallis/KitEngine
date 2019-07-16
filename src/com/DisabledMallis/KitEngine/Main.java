@@ -8,10 +8,11 @@ import com.DisabledMallis.KitEngine.Commands.KitCommand;
 import com.DisabledMallis.KitEngine.Commands.KitsCommand;
 import com.DisabledMallis.KitEngine.Commands.SaveKits;
 import com.DisabledMallis.KitEngine.KitGui.kitGuiClick;
+import com.DisabledMallis.KitEngine.Language.Lang;
 
 public class Main extends JavaPlugin{
 	public void onEnable() {
-		new Log("Starting KitEngine...");
+		new Log(new Lang().getText("plugin.loading"));
 		
 		getCommand("savekit").setExecutor(new SaveKits());
 		getCommand("kit").setExecutor(new KitCommand());
@@ -20,9 +21,9 @@ public class Main extends JavaPlugin{
 		
 		Bukkit.getPluginManager().registerEvents(new kitGuiClick(), this);
 		
-		new Log("KitEngine Loaded & Running!");
+		new Log(new Lang().getText("plugin.loaded"));
 	}
 	public void onDisable() {
-		new Log("if the plugin was disabled due to an error, please report it here: [REPO URL]");
+		new Log(new Lang().getText("error.disable"));
 	}
 }

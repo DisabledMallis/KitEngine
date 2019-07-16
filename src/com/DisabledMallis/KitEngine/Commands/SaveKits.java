@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import com.DisabledMallis.KitEngine.Main;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
+import com.DisabledMallis.KitEngine.Language.Lang;
 
 public class SaveKits implements CommandExecutor{
 	
@@ -26,11 +27,11 @@ public class SaveKits implements CommandExecutor{
 					
 				}
 				else {
-					p.sendMessage("§cUsage: /saveKit <name>");
+					p.sendMessage(new Lang().getText("error.usage.savekit"));
 				}
 			}
 			else {
-				p.sendMessage("§cNo permission!");
+				p.sendMessage(new Lang().getText("error.permission"));
 			}
 		}
 		return true;

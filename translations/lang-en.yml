@@ -1,0 +1,17 @@
+#This file is where you can change all of the text for the plugin. (including console messages!)
+#this is useful if your playerbase doesn't speak english.
+#please use § for colors (ex. §a is green)
+
+#for other translations check here: https://github.com/DisabledMallis/KitEngine/tree/master/translations
+
+gui:
+  title: "§aKits"
+kit:
+  loaded: "§aKit acquired!"
+  saved: "§aKit saved!"
+plugin:
+  loading: "Loading plugin..."
+  loaded: "Loaded plugin!"
+error:
+  permission: "§cYou do not have permission to use this kit!"
+  disable: "if the plugin was disabled due to an error, please report it here: https://github.com/DisabledMallis/KitEngine/issues"

@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import com.DisabledMallis.KitEngine.KitGui.KitUI;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
+import com.DisabledMallis.KitEngine.Language.Lang;
 
 public class KitCommand implements CommandExecutor{
 	@Override
@@ -23,10 +24,12 @@ public class KitCommand implements CommandExecutor{
 					kd.loadContents(p);
 				}
 				else {
-					p.sendMessage("§cYou do not have permission to use kit " + kitName + "!");
+					p.sendMessage(new Lang().getText("error.permission"));
 				}
 			}
-			
+			else {
+				new Lang().getText("error.usage.kit");
+			}
 		}
 		return true;
 	}

@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.DisabledMallis.KitEngine.Log;
 import com.DisabledMallis.KitEngine.Main;
 import com.DisabledMallis.KitEngine.KitManager.KitStats;
+import com.DisabledMallis.KitEngine.Language.Lang;
 
 public class KitUI {
 	static Main plugin = (Main) Bukkit.getPluginManager().getPlugin("KitEngine");
@@ -25,7 +26,7 @@ public class KitUI {
 		int x = 9-kc;
 		int size = kc + x;
 		new Log("size:" + size + " x:" + x + " kc:" + kc);
-		Inventory i = Bukkit.createInventory(null, size, "§aKits");
+		Inventory i = Bukkit.createInventory(null, size, new Lang().getText("gui.title"));
 		
 		File KitsDir = new File(plugin.getDataFolder() + "/Kits/");
 		for (File kit : KitsDir.listFiles()) {
