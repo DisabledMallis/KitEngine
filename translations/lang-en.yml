@@ -6,12 +6,25 @@
 
 gui:
   title: "§aKits"
+  setting:
+    setName: "§aSet Name"
+    setIcon: "§aSet Icon"
+    setReplace: "§aReplace Inventory?"
+    finish: "§aFinish!"
+    cancel: "§cCancel"
+    inputName: "§aType the kit name in chat like any other message"
+    inputIcon: "§aType an item name in chat like any other message. (ex. diamond_sword)"
+  savetitle: "§aSave kit"
 kit:
   loaded: "§aKit acquired!"
   saved: "§aKit saved!"
+  unfinished: "§cYou have not finished the kit!"
+  canceled: "§cKit creation canceled!"
 plugin:
   loading: "Loading plugin..."
   loaded: "Loaded plugin!"
+  approve: "§aYes"
+  deny: "§cNo"
 error:
-  permission: "§cYou do not have permission to use this kit!"
+  permission: "§cYou do not have permission to use this!"
   disable: "if the plugin was disabled due to an error, please report it here: https://github.com/DisabledMallis/KitEngine/issues"

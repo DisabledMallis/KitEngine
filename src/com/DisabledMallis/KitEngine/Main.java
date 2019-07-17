@@ -15,6 +15,8 @@ public class Main extends JavaPlugin{
 	public void onEnable() {
 		new Log(new Lang().getText("plugin.loading"));
 		
+		getResource("lang.yml");
+		
 		getCommand("savekit").setExecutor(new SaveKits());
 		getCommand("kit").setExecutor(new KitCommand());
 		getCommand("kits").setExecutor(new KitsCommand());

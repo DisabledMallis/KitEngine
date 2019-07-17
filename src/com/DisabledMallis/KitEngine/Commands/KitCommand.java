@@ -16,21 +16,26 @@ public class KitCommand implements CommandExecutor{
 		KitAPI api = new KitAPI();
 		if(sender instanceof Player) {
 			Player p = (Player) sender;
-			if(args.length == 0) {
-				KitUI.openKitGUI(p);
-			}
-			else if(args.length == 1) {
-				String kitName = args[0];
-				if(p.hasPermission("Kit.Use." + kitName)) {
-					KitData kd = new KitData(kitName);
-					api.giveKit(kd, p);
+			if(p.hasPermission("kit.use")) {
+				if(args.length == 0) {
+					KitUI.openKitGUI(p);
+				}
+				else if(args.length == 1) {
+					String kitName = args[0];
+					if(p.hasPermission("Kit.Use." + kitName)) {
+						KitData kd = new KitData(kitName);
+						api.giveKit(kd, p);
+					}
+					else {
+						p.sendMessage(new Lang().getText("error.permission"));
+					}
 				}
 				else {
-					p.sendMessage(new Lang().getText("error.permission"));
+					new Lang().getText("error.usage.kit");
 				}
 			}
 			else {
-				new Lang().getText("error.usage.kit");
+				p.sendMessage(new Lang().getText("error.permission"));
 			}
 		}
 		return true;

@@ -7,9 +7,29 @@ api-version: 1.14
 commands:
   savekit:
     usage: /savekit
+    permission: kit.save
   kit:
     usage: /kit <name>
+    permission: kit.use
   debug:
     usage: /kit <name>
   kits:
     usage: /kits
+    permission: kit.save
+permissions:
+  kit.*:
+    description: gives access to all kit commands
+    default: op
+    children:
+      kit.save: true
+      kit.use: true
+      kit.use.*: true
+  kit.use:
+    description: gives access to the '/kit' command
+    default: true
+  kit.save:
+    description: gives access to the '/savekit' command
+    default: op
+  kit.use.*:
+    description: permission for all kits
+    default: true
