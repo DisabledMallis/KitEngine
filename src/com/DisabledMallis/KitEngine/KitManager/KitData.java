@@ -3,8 +3,10 @@ package com.DisabledMallis.KitEngine.KitManager;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -19,10 +21,13 @@ public class KitData {
 	boolean valid = true;
 	
 	String kitName;
+	Material icon = Material.DIAMOND_BLOCK;
+	Boolean addToInventory = false;
+	
 	File fcf;
 	FileConfiguration fc;
 	
-	public KitData(String kitName, Player p) {
+	public KitData(String kitName) {
 		this.kitName = kitName;
 		
 		fcf = new File(plugin.getDataFolder() + "/Kits/" + kitName);
@@ -45,8 +50,12 @@ public class KitData {
 		else {
 			valid = false;
 		}
+		
+		this.icon = Material.valueOf(fc.getString(this.kitName + ".Icon"));
+		this.addToInventory = fc.getBoolean(this.kitName + ".addToInventory");
+		
 	}
-	
+
 	/*
 	 * Save inventory contents (Including blank slots!)
 	 */
@@ -60,21 +69,23 @@ public class KitData {
 			e.printStackTrace();
 		}
 	}
-	
-	/*
-	 * Load contents (Including blanks!)
-	 */
-	public void loadContents(Player p) {
+	public void saveContents(ArrayList<ItemStack> acontents) {
+		ItemStack[] contents = new ItemStack[40];
+		acontents.toArray(contents);
+		fc.set(kitName + ".Contents", contents);
 		try {
-			if(valid) {
-				ItemStack[] contents = new ItemStack[getContents().size()];
-				getContents().toArray(contents);
-				p.getInventory().setContents(contents);
-				p.sendMessage(new Lang().getText("kit.loaded"));
-			}
+			fc.save(fcf);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		catch (NullPointerException e) {
-			p.sendMessage(new Lang().getText("kit.missing"));
+	}
+	
+	public void saveContents(ItemStack[] contents) {
+		fc.set(kitName + ".Contents", contents);
+		try {
+			fc.save(fcf);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -85,11 +96,35 @@ public class KitData {
 	public ArrayList<ItemStack> getContents() {
 		return (ArrayList<ItemStack>) fc.get(kitName + ".Contents");
 	}
+	public ItemStack[] getContentsArray() {
+		ItemStack[] arr = new ItemStack[40];
+		List<?> list = fc.getList(kitName + ".Contents");
+		arr = list.toArray(arr);
+		return arr;
+	}
 	
 	/*
 	 * Check if the file exists
 	 */
 	public boolean exists() {
 		return fcf.exists();
+	}
+	
+	public void setIcon(Material icon) {
+		this.icon = icon;
+		fc.set(this.kitName + ".Icon", icon.name());
+	}
+	
+	public void setReplace(Boolean replace) {
+		this.addToInventory = !replace;
+		fc.set(this.kitName + ".addToInventory", !replace);
+	}
+	
+	public Boolean getReplace() {
+		return !this.addToInventory;
+	}
+
+	public Material getIcon() {
+		return icon;
 	}
 }

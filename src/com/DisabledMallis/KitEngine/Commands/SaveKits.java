@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.DisabledMallis.KitEngine.Main;
-import com.DisabledMallis.KitEngine.KitManager.KitData;
+import com.DisabledMallis.KitEngine.KitGui.SaveKitUI;
 import com.DisabledMallis.KitEngine.Language.Lang;
 
 public class SaveKits implements CommandExecutor{
@@ -19,16 +19,7 @@ public class SaveKits implements CommandExecutor{
 		if(sender instanceof Player) {
 			Player p = (Player) sender;
 			if(p.hasPermission("Kit.Save")) {
-				if(args.length == 1) {
-					String kitName = args[0];
-					
-					KitData kd = new KitData(kitName, p);
-					kd.saveContents(p);
-					
-				}
-				else {
-					p.sendMessage(new Lang().getText("error.usage.savekit"));
-				}
+				SaveKitUI.openSaveKitGUI(p);
 			}
 			else {
 				p.sendMessage(new Lang().getText("error.permission"));

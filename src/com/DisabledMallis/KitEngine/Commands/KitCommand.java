@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.DisabledMallis.KitEngine.API.KitAPI;
 import com.DisabledMallis.KitEngine.KitGui.KitUI;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
 import com.DisabledMallis.KitEngine.Language.Lang;
@@ -12,6 +13,7 @@ import com.DisabledMallis.KitEngine.Language.Lang;
 public class KitCommand implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		KitAPI api = new KitAPI();
 		if(sender instanceof Player) {
 			Player p = (Player) sender;
 			if(args.length == 0) {
@@ -20,8 +22,8 @@ public class KitCommand implements CommandExecutor{
 			else if(args.length == 1) {
 				String kitName = args[0];
 				if(p.hasPermission("Kit.Use." + kitName)) {
-					KitData kd = new KitData(kitName, p);
-					kd.loadContents(p);
+					KitData kd = new KitData(kitName);
+					api.giveKit(kd, p);
 				}
 				else {
 					p.sendMessage(new Lang().getText("error.permission"));

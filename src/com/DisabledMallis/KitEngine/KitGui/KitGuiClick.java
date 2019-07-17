@@ -9,7 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import com.DisabledMallis.KitEngine.Log;
 import com.DisabledMallis.KitEngine.Language.Lang;
 
-public class kitGuiClick implements Listener{
+public class KitGuiClick implements Listener{
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if(e.getView().getTitle().equals(new Lang().getText("gui.title"))) {

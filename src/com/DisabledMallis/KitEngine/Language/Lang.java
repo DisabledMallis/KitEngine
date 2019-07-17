@@ -26,8 +26,6 @@ public class Lang {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			fc.set("error.disable", "if the plugin was disabled due to an error, please report it here: https://github.com/DisabledMallis/KitEngine/issues");
-			fc.set("error.permission", "§cYou do not have permission to use this command!");
 		}
 	}
 	
