@@ -6,7 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import com.DisabledMallis.KitEngine.Log;
 import com.DisabledMallis.KitEngine.Language.Lang;
 
 public class KitGuiClick implements Listener{
@@ -20,7 +19,6 @@ public class KitGuiClick implements Listener{
 			else {
 				Player p = (Player) e.getWhoClicked();
 				String name = e.getCurrentItem().getItemMeta().getDisplayName().substring(2);
-				new Log(name);
 				p.performCommand("kit " + name);
 			}
 		}

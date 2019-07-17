@@ -87,6 +87,16 @@ public class KitBuilder {
 		return name;
 	}
 	
+	public boolean cancelBuild() {
+		if(fcf != null) {
+			if(fcf.exists()) {
+				return fcf.delete();
+			}
+			return true;
+		}
+		return true;
+	}
+	
 	public boolean hasIcon() {
 		return icon != Material.DIAMOND;
 	}

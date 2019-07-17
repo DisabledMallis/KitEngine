@@ -127,4 +127,8 @@ public class KitData {
 	public Material getIcon() {
 		return icon;
 	}
+	
+	public boolean delete() {
+		return fcf.delete();
+	}
 }

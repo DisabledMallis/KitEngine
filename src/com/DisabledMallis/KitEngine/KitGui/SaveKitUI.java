@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.DisabledMallis.KitEngine.Log;
 import com.DisabledMallis.KitEngine.Main;
 import com.DisabledMallis.KitEngine.API.KitBuilder;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
@@ -66,7 +65,7 @@ public class SaveKitUI implements Listener{
 			setReplaceStack = new ItemStack(Material.OAK_SIGN);
 			ItemMeta setReplaceMeta = setReplaceStack.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
-			lore.add(new Lang().getText("plugin.yes"));
+			lore.add(new Lang().getText("plugin.approve"));
 			setReplaceMeta.setLore(lore);
 			setReplaceMeta.setDisplayName(new Lang().getText("gui.setting.setReplace"));
 			setReplaceStack.setItemMeta(setReplaceMeta);
@@ -88,7 +87,7 @@ public class SaveKitUI implements Listener{
 			setReplaceStack = new ItemStack(Material.OAK_SIGN);
 			ItemMeta setReplaceMeta = setReplaceStack.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
-			lore.add(new Lang().getText("plugin.yes"));
+			lore.add(new Lang().getText("plugin.approve"));
 			setReplaceMeta.setLore(lore);
 			setReplaceMeta.setDisplayName(new Lang().getText("gui.setting.setReplace"));
 			setReplaceStack.setItemMeta(setReplaceMeta);
@@ -101,10 +100,17 @@ public class SaveKitUI implements Listener{
 		finishMeta.setDisplayName(new Lang().getText("gui.setting.finish"));
 		finishStack.setItemMeta(finishMeta);
 		
+		//cancel
+		ItemStack cancelStack = new ItemStack(Material.BARRIER);
+		ItemMeta cencelMeta = cancelStack.getItemMeta();
+		cencelMeta.setDisplayName(new Lang().getText("gui.setting.cancel"));
+		cancelStack.setItemMeta(cencelMeta);
+		
 		i.setItem(3, setNameStack);
 		i.setItem(4, setIconStack);
 		i.setItem(5, setReplaceStack);
 		i.setItem(8, finishStack);
+		i.setItem(0, cancelStack);
 		
 		p.openInventory(i);
 	}
@@ -133,14 +139,14 @@ public class SaveKitUI implements Listener{
 					kb.replace = false;
 					ItemMeta setReplaceMeta = e.getCurrentItem().getItemMeta();
 					ArrayList<String> lore = new ArrayList<String>();
-					lore.add(new Lang().getText("plugin.no"));
+					lore.add(new Lang().getText("plugin.deny"));
 					setReplaceMeta.setLore(lore);
 					e.getCurrentItem().setItemMeta(setReplaceMeta);
 				}else {
 					kb.replace = true;
 					ItemMeta setReplaceMeta = e.getCurrentItem().getItemMeta();
 					ArrayList<String> lore = new ArrayList<String>();
-					lore.add(new Lang().getText("plugin.yes"));
+					lore.add(new Lang().getText("plugin.approve"));
 					setReplaceMeta.setLore(lore);
 					e.getCurrentItem().setItemMeta(setReplaceMeta);
 				}
@@ -155,7 +161,12 @@ public class SaveKitUI implements Listener{
 					p.sendMessage(new Lang().getText("kit.unfinished"));
 				}
 			}
-			new Log(e.getCurrentItem().getItemMeta().getDisplayName());
+			else if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.setting.cancel")) == 0) {
+				sessions.get(p).cancelBuild();
+				sessions.remove(p);
+				p.sendMessage(new Lang().getText("kit.canceled"));
+				p.closeInventory();
+			}
 		}
 	}
 	
@@ -177,9 +188,13 @@ public class SaveKitUI implements Listener{
 			}
 			else if(textInput.get(p) == Purpose.ICON) {
 				try {
+					Material mat = Material.valueOf(e.getMessage().toUpperCase());
+					if(mat == Material.AIR) {
+						throw new NullPointerException();
+					}
 					kb.setIcon(Material.valueOf(e.getMessage().toUpperCase()));
 				}
-				catch (IllegalArgumentException e1) {
+				catch (IllegalArgumentException | NullPointerException e1) {
 					p.sendMessage("§cThat item doesn't exist!");
 				}
 				e.setCancelled(true);
