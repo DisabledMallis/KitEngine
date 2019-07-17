@@ -1,7 +1,6 @@
 package com.DisabledMallis.KitEngine.Language;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -20,19 +19,12 @@ public class Lang {
 	public Lang() {
 		fcf = new File(plugin.getDataFolder() + "/lang.yml");
 		fc = YamlConfiguration.loadConfiguration(fcf);
-		if(!fcf.exists()) {
-			try {
-				fcf.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 	
 	public String getText(String id) {
 		fc = YamlConfiguration.loadConfiguration(fcf);
 		if(fc.getString(id) != null) {
-			return fc.getString(id);
+			return fc.getString(id).replace('&', '§');
 		}
 		else {
 			return id;

@@ -1,6 +1,13 @@
 package com.DisabledMallis.KitEngine;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.libs.org.apache.commons.io.IOUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.DisabledMallis.KitEngine.Commands.DebugCommand;
@@ -14,8 +21,21 @@ import com.DisabledMallis.KitEngine.Language.Lang;
 public class Main extends JavaPlugin{
 	public void onEnable() {
 		new Log(new Lang().getText("plugin.loading"));
-		
-		getResource("lang.yml");
+
+		File lang = new File(getDataFolder() + "/lang.yml");
+		if(!lang.exists()) {
+			try {
+				new Log("lang.yml...");
+				lang.createNewFile();
+				lang.setWritable(true);
+				InputStream stream = getResource("lang.yml");
+				OutputStream outStream = new FileOutputStream(lang);
+				IOUtils.copy(stream, outStream);
+				new Log("lang.yml!");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		getCommand("savekit").setExecutor(new SaveKits());
 		getCommand("kit").setExecutor(new KitCommand());

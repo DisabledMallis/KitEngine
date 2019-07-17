@@ -10,6 +10,7 @@
         <directory>resources</directory>
         <includes>
           <include>plugin.yml</include>
+          <include>lang.yml</include>
         </includes>
       </resource>
     </resources>

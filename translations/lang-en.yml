@@ -1,30 +1,30 @@
 #This file is where you can change all of the text for the plugin. (including console messages!)
 #this is useful if your playerbase doesn't speak english.
-#please use § for colors (ex. §a is green)
+#please use & for colors (ex. &a is green)
 
 #for other translations check here: https://github.com/DisabledMallis/KitEngine/tree/master/translations
 
 gui:
-  title: "§aKits"
+  title: "&aKits"
   setting:
-    setName: "§aSet Name"
-    setIcon: "§aSet Icon"
-    setReplace: "§aReplace Inventory?"
-    finish: "§aFinish!"
-    cancel: "§cCancel"
-    inputName: "§aType the kit name in chat like any other message"
-    inputIcon: "§aType an item name in chat like any other message. (ex. diamond_sword)"
-  savetitle: "§aSave kit"
+    setName: "&aSet Name"
+    setIcon: "&aSet Icon"
+    setReplace: "&aReplace Inventory?"
+    finish: "&aFinish!"
+    cancel: "&cCancel"
+    inputName: "&aType the kit name in chat like any other message"
+    inputIcon: "&aType an item name in chat like any other message. (ex. diamond_sword)"
+  savetitle: "&aSave kit"
 kit:
-  loaded: "§aKit acquired!"
-  saved: "§aKit saved!"
-  unfinished: "§cYou have not finished the kit!"
-  canceled: "§cKit creation canceled!"
+  loaded: "&aKit acquired!"
+  saved: "&aKit saved!"
+  unfinished: "&cYou have not finished the kit!"
+  canceled: "&cKit creation canceled!"
 plugin:
   loading: "Loading plugin..."
   loaded: "Loaded plugin!"
-  approve: "§aYes"
-  deny: "§cNo"
+  approve: "&aYes"
+  deny: "&cNo"
 error:
-  permission: "§cYou do not have permission to use this!"
+  permission: "&cYou do not have permission to use this!"
   disable: "if the plugin was disabled due to an error, please report it here: https://github.com/DisabledMallis/KitEngine/issues"

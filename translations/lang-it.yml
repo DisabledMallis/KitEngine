@@ -1,30 +1,30 @@
 #In questo file può cambiare i testi dal plugin. (compresi i messagi da console!)
 #è utili se tuo playerbase non capisce italiano.
-#per favore usa § per i colori (ex. §a è verde)
+#per favore usa & per i colori (ex. &a è verde)
 
 #per altre tradurre: https://github.com/DisabledMallis/KitEngine/tree/master/translations
 
 gui:
-  title: "§aKits"
+  title: "&aKits"
   setting:
-    setName: "§aMetti Nome"
-    setIcon: "§aMetti l'icona"
-    setReplace: "§aSostituisci l'inventario?"
-    finish: "§aFinito!"
-    cancel: "§cAnulla"
-    inputName: "§aDigita il nome nel chat"
-    inputIcon: "§aDigita il nome dell'oggetto per l'icona nel chat. (ex. diamond_sword)"
-  savetitle: "§aSalva kit"
+    setName: "&aMetti Nome"
+    setIcon: "&aMetti l'icona"
+    setReplace: "&aSostituisci l'inventario?"
+    finish: "&aFinito!"
+    cancel: "&cAnulla"
+    inputName: "&aDigita il nome nel chat"
+    inputIcon: "&aDigita il nome dell'oggetto per l'icona nel chat. (ex. diamond_sword)"
+  savetitle: "&aSalva kit"
 kit:
-  loaded: "§aKit ottenuto!"
-  saved: "§aKit salvato!"
-  unfinished: "§cNon hai finito il kit!"
-  canceled: "§cLa creazione di kit annullato!"
+  loaded: "&aKit ottenuto!"
+  saved: "&aKit salvato!"
+  unfinished: "&cNon hai finito il kit!"
+  canceled: "&cLa creazione di kit annullato!"
 plugin:
   loading: "Caricamento plugin..."
   loaded: "Plugin caricato!"
-  approve: "§aSi"
-  deny: "§cNo"
+  approve: "&aSi"
+  deny: "&cNo"
 error:
-  permission: "§cNon hai i permessi per l'azione!"
+  permission: "&cNon hai i permessi per l'azione!"
   disable: "se il plugin e non funziona per errore, dimmi qui: https://github.com/DisabledMallis/KitEngine/issues"
