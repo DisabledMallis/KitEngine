@@ -2,9 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>KitEngine</groupId>
   <artifactId>KitEngine</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <finalName>KitEngine</finalName>
     <resources>
       <resource>
         <directory>resources</directory>

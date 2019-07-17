@@ -23,6 +23,13 @@ public class Main extends JavaPlugin{
 		new Log(new Lang().getText("plugin.loading"));
 
 		File lang = new File(getDataFolder() + "/lang.yml");
+		File kitDir = new File(getDataFolder() + "/Kits/");
+		if(!getDataFolder().exists()) {
+			getDataFolder().mkdir();
+		}
+		if(!kitDir.exists()) {
+			kitDir.mkdir();
+		}
 		if(!lang.exists()) {
 			try {
 				new Log("lang.yml...");
