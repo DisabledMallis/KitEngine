@@ -176,7 +176,12 @@ public class SaveKitUI implements Listener{
 				textInput.remove(p);
 			}
 			else if(textInput.get(p) == Purpose.ICON) {
-				kb.setIcon(Material.valueOf(e.getMessage().toUpperCase()));
+				try {
+					kb.setIcon(Material.valueOf(e.getMessage().toUpperCase()));
+				}
+				catch (IllegalArgumentException e1) {
+					p.sendMessage("§cThat item doesn't exist!");
+				}
 				e.setCancelled(true);
 				new BukkitRunnable() {
 					@Override
