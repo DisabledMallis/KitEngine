@@ -97,7 +97,12 @@ public class KitData {
 		return (ArrayList<ItemStack>) fc.get(kitName + ".Contents");
 	}
 	public ItemStack[] getContentsArray() {
-		ItemStack[] arr = new ItemStack[40];
+		ItemStack[] arr;
+		if(Bukkit.getBukkitVersion().contains("1.8")) {
+			arr = new ItemStack[36];
+		} else {
+			arr = new ItemStack[40];
+		}
 		List<?> list = fc.getList(kitName + ".Contents");
 		arr = list.toArray(arr);
 		return arr;

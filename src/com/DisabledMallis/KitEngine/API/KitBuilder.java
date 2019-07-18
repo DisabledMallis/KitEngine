@@ -57,6 +57,10 @@ public class KitBuilder {
 		ali.add(i);
 		return this;
 	}
+	public KitBuilder setReplacing(Boolean i) {
+		replace = i;
+		return this;
+	}
 	public KitBuilder addAll(ArrayList<ItemStack> i) {
 		ali.addAll(i);
 		return this;

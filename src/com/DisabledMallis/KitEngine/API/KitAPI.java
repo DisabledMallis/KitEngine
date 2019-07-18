@@ -16,6 +16,9 @@ public class KitAPI {
 	public KitData getKit(String name) {
 		return new KitData(name);
 	}
+	public KitBuilder createKit() {
+		return new KitBuilder();
+	}
 	
 	public void giveKit(KitData kit, Player player) {
 		if(kit.getReplace()) {

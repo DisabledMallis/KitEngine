@@ -40,7 +40,7 @@ public class SaveKitUI implements Listener{
 		if(sessions.containsKey(p)) {
 			KitBuilder kb = sessions.get(p);
 			//set name
-			setNameStack = new ItemStack(Material.OAK_SIGN);
+			setNameStack = new ItemStack(Material.SIGN);
 			ItemMeta setNameMeta = setNameStack.getItemMeta();
 			setNameMeta.setDisplayName(new Lang().getText("gui.setting.setName"));
 			if(kb.hasName()) {
@@ -55,14 +55,14 @@ public class SaveKitUI implements Listener{
 				setIconStack = new ItemStack(kb.getIcon());
 			}
 			else {
-				setIconStack = new ItemStack(Material.OAK_SIGN);
+				setIconStack = new ItemStack(Material.SIGN);
 			}
 			ItemMeta setIconMeta = setIconStack.getItemMeta();
 			setIconMeta.setDisplayName(new Lang().getText("gui.setting.setIcon"));
 			setIconStack.setItemMeta(setIconMeta);
 			
 			//set add or replace inventory
-			setReplaceStack = new ItemStack(Material.OAK_SIGN);
+			setReplaceStack = new ItemStack(Material.SIGN);
 			ItemMeta setReplaceMeta = setReplaceStack.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
 			lore.add(new Lang().getText("plugin.approve"));
@@ -72,19 +72,19 @@ public class SaveKitUI implements Listener{
 		}
 		else {
 			//set name
-			setNameStack = new ItemStack(Material.OAK_SIGN);
+			setNameStack = new ItemStack(Material.SIGN);
 			ItemMeta setNameMeta = setNameStack.getItemMeta();
 			setNameMeta.setDisplayName(new Lang().getText("gui.setting.setName"));
 			setNameStack.setItemMeta(setNameMeta);
 			
 			//set icon
-			setIconStack = new ItemStack(Material.OAK_SIGN);
+			setIconStack = new ItemStack(Material.SIGN);
 			ItemMeta setIconMeta = setIconStack.getItemMeta();
 			setIconMeta.setDisplayName(new Lang().getText("gui.setting.setIcon"));
 			setIconStack.setItemMeta(setIconMeta);
 			
 			//set add or replace inventory
-			setReplaceStack = new ItemStack(Material.OAK_SIGN);
+			setReplaceStack = new ItemStack(Material.SIGN);
 			ItemMeta setReplaceMeta = setReplaceStack.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
 			lore.add(new Lang().getText("plugin.approve"));
@@ -95,7 +95,7 @@ public class SaveKitUI implements Listener{
 		}
 		
 		//finish
-		ItemStack finishStack = new ItemStack(Material.OAK_SIGN);
+		ItemStack finishStack = new ItemStack(Material.SIGN);
 		ItemMeta finishMeta = finishStack.getItemMeta();
 		finishMeta.setDisplayName(new Lang().getText("gui.setting.finish"));
 		finishStack.setItemMeta(finishMeta);

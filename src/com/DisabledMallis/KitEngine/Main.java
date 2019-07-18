@@ -1,13 +1,13 @@
 package com.DisabledMallis.KitEngine;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.IOUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.DisabledMallis.KitEngine.Commands.DebugCommand;
@@ -31,17 +31,10 @@ public class Main extends JavaPlugin{
 			kitDir.mkdir();
 		}
 		if(!lang.exists()) {
-			try {
-				new Log("lang.yml...");
-				lang.createNewFile();
-				lang.setWritable(true);
-				InputStream stream = getResource("lang.yml");
-				OutputStream outStream = new FileOutputStream(lang);
-				IOUtils.copy(stream, outStream);
-				new Log("lang.yml!");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			new Log("lang.yml...");
+			InputStream stream = getResource("lang.yml");
+			copy(stream, lang.getPath());
+			new Log("lang.yml!");
 		}
 		
 		getCommand("savekit").setExecutor(new SaveKits());
@@ -57,4 +50,35 @@ public class Main extends JavaPlugin{
 	public void onDisable() {
 		new Log(new Lang().getText("error.disable"));
 	}
+	
+	
+	/**
+     * Copy a file from source to destination.
+     *
+     * @param source
+     *        the source
+     * @param destination
+     *        the destination
+     * @return True if succeeded , False if not
+     * 
+     * from https://stackoverflow.com/questions/10308221/how-to-copy-file-inside-jar-to-outside-the-jar
+     * by https://stackoverflow.com/users/4970079/goxr3plus
+     * 
+     * thx homie
+     */
+	public static boolean copy(InputStream source , String destination) {
+        boolean succeess = true;
+
+        new Log("Copying ->" + source + "\n\tto ->" + destination);
+
+        try {
+            Files.copy(source, Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            succeess = false;
+        }
+
+        return succeess;
+
+    }
 }
