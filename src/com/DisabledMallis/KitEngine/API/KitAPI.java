@@ -3,6 +3,7 @@ package com.DisabledMallis.KitEngine.API;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.DisabledMallis.KitEngine.Economy.Eco;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
 
 public class KitAPI {
@@ -32,5 +33,10 @@ public class KitAPI {
 				}
 			}
 		}
+	}
+	
+	public void sellKit(KitData kit, Player player) {
+		Eco.chargePlayer(player, kit.getPrice());
+		giveKit(kit, player);
 	}
 }

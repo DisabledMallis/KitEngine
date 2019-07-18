@@ -14,6 +14,7 @@ import com.DisabledMallis.KitEngine.Commands.DebugCommand;
 import com.DisabledMallis.KitEngine.Commands.KitCommand;
 import com.DisabledMallis.KitEngine.Commands.KitsCommand;
 import com.DisabledMallis.KitEngine.Commands.SaveKits;
+import com.DisabledMallis.KitEngine.Economy.Eco;
 import com.DisabledMallis.KitEngine.KitGui.KitGuiClick;
 import com.DisabledMallis.KitEngine.KitGui.SaveKitUI;
 import com.DisabledMallis.KitEngine.Language.Lang;
@@ -22,7 +23,7 @@ import com.DisabledMallis.KitEngine.Stats.MetricsLite;
 public class Main extends JavaPlugin{
 	public void onEnable() {
 		new Log(new Lang().getText("plugin.loading"));
-
+		
 		new MetricsLite(this);
 		
 		File lang = new File(getDataFolder() + "/lang.yml");
@@ -47,6 +48,12 @@ public class Main extends JavaPlugin{
 		
 		Bukkit.getPluginManager().registerEvents(new KitGuiClick(), this);		
 		Bukkit.getPluginManager().registerEvents(new SaveKitUI(), this);
+		
+		if(Eco.validVault()) {
+			new Log("Vault found!");
+		} else {
+			new Log("Vault not found, Vault features disabled.");
+		}
 		
 		new Log(new Lang().getText("plugin.loaded"));
 	}

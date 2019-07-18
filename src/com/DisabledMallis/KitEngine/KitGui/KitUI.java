@@ -1,6 +1,7 @@
 package com.DisabledMallis.KitEngine.KitGui;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -9,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.DisabledMallis.KitEngine.Main;
+import com.DisabledMallis.KitEngine.Economy.Eco;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
 import com.DisabledMallis.KitEngine.Language.Lang;
 
@@ -32,6 +34,13 @@ public class KitUI {
 				ItemStack kitStack = new ItemStack(kd.getIcon());
 				ItemMeta kitMeta = kitStack.getItemMeta();
 				kitMeta.setDisplayName("§a" + kit.getName());
+				if(Eco.validVault()) {
+					if(kd.hasPrice()) {
+						ArrayList<String> priceLore = new ArrayList<String>();
+						priceLore.add(new Lang().getText("eco.price") + kd.getPrice());
+						kitMeta.setLore(priceLore);
+					}
+				}
 				kitStack.setItemMeta(kitMeta);
 				i.addItem(kitStack);
 			}

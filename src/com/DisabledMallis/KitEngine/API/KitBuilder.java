@@ -28,6 +28,7 @@ public class KitBuilder {
 	String name;
 	public Boolean replace = true;
 	Material icon = Material.DIAMOND;
+	double Price = 0;
 	
 	public KitBuilder() {
 	}
@@ -73,6 +74,7 @@ public class KitBuilder {
 		}
 		fc.set(name + ".Icon", icon.name());
 		fc.set(name + ".addToInventory", !replace);
+		fc.set(name + ".Price", Price);
 		
 		try {
 			fc.save(fcf);
@@ -106,5 +108,13 @@ public class KitBuilder {
 	}
 	public Material getIcon() {
 		return icon;
+	}
+	
+	public KitBuilder setPrice(double price) {
+		this.Price = price;
+		return this;
+	}
+	public double getPrice() {
+		return this.Price;
 	}
 }

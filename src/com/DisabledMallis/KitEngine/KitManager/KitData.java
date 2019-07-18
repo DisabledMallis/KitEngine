@@ -23,6 +23,7 @@ public class KitData {
 	String kitName;
 	Material icon = Material.DIAMOND_BLOCK;
 	Boolean addToInventory = false;
+	double Price = 0;
 	
 	File fcf;
 	FileConfiguration fc;
@@ -118,11 +119,21 @@ public class KitData {
 	public void setIcon(Material icon) {
 		this.icon = icon;
 		fc.set(this.kitName + ".Icon", icon.name());
+		try {
+			fc.save(fcf);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setReplace(Boolean replace) {
 		this.addToInventory = !replace;
 		fc.set(this.kitName + ".addToInventory", !replace);
+		try {
+			fc.save(fcf);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Boolean getReplace() {
@@ -131,6 +142,29 @@ public class KitData {
 
 	public Material getIcon() {
 		return icon;
+	}
+	
+	public Boolean hasPrice() {
+		return fc.isSet(kitName + ".Price");
+	}
+	public void setPrice(double price) {
+		this.Price = price;
+		fc.set(this.kitName + ".Price", this.Price);
+		try {
+			fc.save(fcf);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public double getPrice() {
+		this.Price = fc.getDouble(kitName + ".Price");
+		fc.set(this.kitName + ".Price", this.Price);
+		try {
+			fc.save(fcf);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return this.Price;
 	}
 	
 	public boolean delete() {

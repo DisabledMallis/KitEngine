@@ -4,6 +4,7 @@ description: An open sourced kit plugin
 author: Mallis
 main: com.DisabledMallis.KitEngine.Main
 api-version: 1.14
+softdepend: [Vault]
 commands:
   savekit:
     usage: /savekit
@@ -33,3 +34,4 @@ permissions:
   kit.use.*:
     description: permission for all kits
     default: true
+  

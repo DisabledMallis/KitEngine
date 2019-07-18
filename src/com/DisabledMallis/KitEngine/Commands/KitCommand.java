@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.DisabledMallis.KitEngine.API.KitAPI;
+import com.DisabledMallis.KitEngine.Economy.Eco;
 import com.DisabledMallis.KitEngine.KitGui.KitUI;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
 import com.DisabledMallis.KitEngine.Language.Lang;
@@ -24,7 +25,17 @@ public class KitCommand implements CommandExecutor{
 					String kitName = args[0];
 					if(p.hasPermission("Kit.Use." + kitName)) {
 						KitData kd = new KitData(kitName);
-						api.giveKit(kd, p);
+						if(Eco.validVault()) {
+							if(kd.hasPrice()) {
+								api.sellKit(kd, p);
+							}
+							else {
+								api.giveKit(kd, p);
+							}
+						}
+						else {
+							api.giveKit(kd, p);
+						}
 					}
 					else {
 						p.sendMessage(new Lang().getText("error.permission"));

@@ -17,8 +17,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.DisabledMallis.KitEngine.Main;
 import com.DisabledMallis.KitEngine.API.KitBuilder;
+import com.DisabledMallis.KitEngine.Economy.Eco;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
 import com.DisabledMallis.KitEngine.Language.Lang;
+import com.google.common.primitives.Doubles;
 
 public class SaveKitUI implements Listener{
 	
@@ -36,6 +38,7 @@ public class SaveKitUI implements Listener{
 		ItemStack setNameStack;
 		ItemStack setIconStack;
 		ItemStack setReplaceStack;
+		ItemStack setPriceStack = null;
 		
 		if(sessions.containsKey(p)) {
 			KitBuilder kb = sessions.get(p);
@@ -69,6 +72,17 @@ public class SaveKitUI implements Listener{
 			setReplaceMeta.setLore(lore);
 			setReplaceMeta.setDisplayName(new Lang().getText("gui.setting.setReplace"));
 			setReplaceStack.setItemMeta(setReplaceMeta);
+			
+			if(Eco.validVault()) {
+				//set add or replace inventory
+				setPriceStack = new ItemStack(Material.SIGN);
+				ItemMeta setPriceMeta = setPriceStack.getItemMeta();
+				ArrayList<String> priceLore = new ArrayList<String>();
+				priceLore.add(new Lang().getText("eco.price") + kb.getPrice());
+				setPriceMeta.setLore(priceLore);
+				setPriceMeta.setDisplayName(new Lang().getText("gui.setting.setPrice"));
+				setPriceStack.setItemMeta(setPriceMeta);
+			}
 		}
 		else {
 			//set name
@@ -91,6 +105,18 @@ public class SaveKitUI implements Listener{
 			setReplaceMeta.setLore(lore);
 			setReplaceMeta.setDisplayName(new Lang().getText("gui.setting.setReplace"));
 			setReplaceStack.setItemMeta(setReplaceMeta);
+			
+			if(Eco.validVault()) {
+				//set add or replace inventory
+				setPriceStack = new ItemStack(Material.SIGN);
+				ItemMeta setPriceMeta = setPriceStack.getItemMeta();
+				ArrayList<String> priceLore = new ArrayList<String>();
+				priceLore.add(new Lang().getText("eco.price") + "0");
+				setPriceMeta.setLore(priceLore);
+				setPriceMeta.setDisplayName(new Lang().getText("gui.setting.setPrice"));
+				setPriceStack.setItemMeta(setPriceMeta);
+			}
+			
 			sessions.put(p, new KitBuilder());
 		}
 		
@@ -106,9 +132,18 @@ public class SaveKitUI implements Listener{
 		cencelMeta.setDisplayName(new Lang().getText("gui.setting.cancel"));
 		cancelStack.setItemMeta(cencelMeta);
 		
-		i.setItem(3, setNameStack);
-		i.setItem(4, setIconStack);
-		i.setItem(5, setReplaceStack);
+		if(Eco.validVault()) {
+			i.setItem(2, setNameStack);
+			i.setItem(3, setIconStack);
+			i.setItem(5, setReplaceStack);
+			i.setItem(6, setPriceStack);
+		}
+		else {
+			i.setItem(3, setNameStack);
+			i.setItem(4, setIconStack);
+			i.setItem(5, setReplaceStack);
+		}
+		
 		i.setItem(8, finishStack);
 		i.setItem(0, cancelStack);
 		
@@ -150,6 +185,11 @@ public class SaveKitUI implements Listener{
 					setReplaceMeta.setLore(lore);
 					e.getCurrentItem().setItemMeta(setReplaceMeta);
 				}
+			}
+			else if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.setting.setPrice")) == 0) {
+				e.getWhoClicked().sendMessage(new Lang().getText("gui.setting.inputPrice"));
+				textInput.put(p, Purpose.PRICE);
+				p.closeInventory();
 			}
 			else if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.setting.finish")) == 0) {
 				if(kb.hasName()) {
@@ -206,11 +246,24 @@ public class SaveKitUI implements Listener{
 				}.runTaskLater(plugin, 1);
 				textInput.remove(p);
 			}
+			else if(textInput.get(p) == Purpose.PRICE) {
+				e.setCancelled(true);
+				double price = Doubles.tryParse(e.getMessage());
+				kb.setPrice(price);
+				new BukkitRunnable() {
+					@Override
+					public void run() {
+						openSaveKitGUI(p);
+					}
+				}.runTaskLater(plugin, 1);
+				textInput.remove(p);
+			}
 		}
 	}
 	
 	public enum Purpose {
 		NAME,
-		ICON
+		ICON,
+		PRICE
 	}
 }
