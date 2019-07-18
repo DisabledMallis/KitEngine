@@ -24,7 +24,11 @@ permissions:
     children:
       kit.save: true
       kit.use: true
+      kits.use: true
       kit.use.*: true
+  kits.use:
+    description: gives access to the '/kits' command
+    default: true
   kit.use:
     description: gives access to the '/kit' command
     default: true

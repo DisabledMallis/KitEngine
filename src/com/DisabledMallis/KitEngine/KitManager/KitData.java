@@ -12,6 +12,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.DisabledMallis.KitEngine.Log;
 import com.DisabledMallis.KitEngine.Main;
 import com.DisabledMallis.KitEngine.Language.Lang;
 
@@ -51,9 +52,19 @@ public class KitData {
 		else {
 			valid = false;
 		}
-		
-		this.icon = Material.valueOf(fc.getString(this.kitName + ".Icon"));
-		this.addToInventory = fc.getBoolean(this.kitName + ".addToInventory");
+		if(fc.isSet(kitName)) {
+			try {
+				this.icon = Material.valueOf(fc.getString(this.kitName + ".Icon"));
+			}
+			catch (IllegalArgumentException e) {
+				valid = false;
+			}
+			this.addToInventory = fc.getBoolean(this.kitName + ".addToInventory");
+		}
+		else {
+			new Log(new Lang().getText("error.namechanged"));
+			valid = false;
+		}
 		
 	}
 
@@ -169,5 +180,8 @@ public class KitData {
 	
 	public boolean delete() {
 		return fcf.delete();
+	}
+	public Boolean isSafe() {
+		return valid;
 	}
 }

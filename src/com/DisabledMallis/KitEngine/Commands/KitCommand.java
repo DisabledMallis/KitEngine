@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 
 import com.DisabledMallis.KitEngine.API.KitAPI;
 import com.DisabledMallis.KitEngine.Economy.Eco;
-import com.DisabledMallis.KitEngine.KitGui.KitUI;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
 import com.DisabledMallis.KitEngine.Language.Lang;
 
@@ -19,10 +18,14 @@ public class KitCommand implements CommandExecutor{
 			Player p = (Player) sender;
 			if(p.hasPermission("kit.use")) {
 				if(args.length == 0) {
-					KitUI.openKitGUI(p);
+					p.sendMessage(new Lang().getText("command.kit.usage"));
 				}
 				else if(args.length == 1) {
 					String kitName = args[0];
+					if(kitName.equals(new Lang().getText("error.corrupted"))) {
+						p.sendMessage(new Lang().getText("error.corrupted"));
+						return true;
+					}
 					if(p.hasPermission("Kit.Use." + kitName)) {
 						KitData kd = new KitData(kitName);
 						if(Eco.validVault()) {
