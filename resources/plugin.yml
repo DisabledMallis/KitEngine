@@ -9,14 +9,18 @@ commands:
   savekit:
     usage: /savekit
     permission: kit.save
+    description: Save a kit
   kit:
     usage: /kit <name>
     permission: kit.use
+    description: Acquire a kit with the specified name
   debug:
     usage: /kit <name>
+    description: KitEngine debuggin command, please ignore.
   kits:
     usage: /kits
     permission: kit.save
+    description: Access to /kits, the kits gui.
 permissions:
   kit.*:
     description: gives access to all kit commands

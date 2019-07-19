@@ -10,6 +10,7 @@ gui:
     setName: "&aSet Name"
     setIcon: "&aSet Icon"
     setReplace: "&aReplace Inventory?"
+    setPrice: "&aSet Price"
     finish: "&aFinish!"
     cancel: "&cCancel"
     inputName: "&aType the kit name in chat like any other message"
@@ -25,6 +26,14 @@ plugin:
   loaded: "Loaded plugin!"
   approve: "&aYes"
   deny: "&cNo"
+eco:
+  price: "&aPrice: &e"
+  charged: "&aYou were charged $"
 error:
   permission: "&cYou do not have permission to use this!"
+  noeco: "&4Vault provider is NULL! KitEngine won't work as expected!"
+  corrupted: "&cThis kit is corrupted!"
   disable: "if the plugin was disabled due to an error, please report it here: https://github.com/DisabledMallis/KitEngine/issues"
+command:
+  kit:
+    usage: "&cUsage: /kit <kitname>"
