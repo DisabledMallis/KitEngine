@@ -38,6 +38,7 @@ public class SaveKitUI implements Listener{
 		ItemStack setNameStack;
 		ItemStack setIconStack;
 		ItemStack setReplaceStack;
+		ItemStack setCooldownStack;
 		ItemStack setPriceStack = null;
 		
 		if(sessions.containsKey(p)) {
@@ -74,7 +75,7 @@ public class SaveKitUI implements Listener{
 			setReplaceStack.setItemMeta(setReplaceMeta);
 			
 			if(Eco.validVault()) {
-				//set add or replace inventory
+				//set price
 				setPriceStack = new ItemStack(Material.SIGN);
 				ItemMeta setPriceMeta = setPriceStack.getItemMeta();
 				ArrayList<String> priceLore = new ArrayList<String>();
@@ -83,6 +84,15 @@ public class SaveKitUI implements Listener{
 				setPriceMeta.setDisplayName(new Lang().getText("gui.setting.setPrice"));
 				setPriceStack.setItemMeta(setPriceMeta);
 			}
+			
+			//set cooldown
+			setCooldownStack = new ItemStack(Material.SIGN);
+			ItemMeta setCooldownMeta = setCooldownStack.getItemMeta();
+			ArrayList<String> coolLore = new ArrayList<String>();
+			coolLore.add(new Lang().getText("kit.cooldown") + kb.getCooldown());
+			setCooldownMeta.setLore(coolLore);
+			setCooldownMeta.setDisplayName(new Lang().getText("gui.setting.setCooldown"));
+			setCooldownStack.setItemMeta(setCooldownMeta);
 		}
 		else {
 			//set name
@@ -107,7 +117,7 @@ public class SaveKitUI implements Listener{
 			setReplaceStack.setItemMeta(setReplaceMeta);
 			
 			if(Eco.validVault()) {
-				//set add or replace inventory
+				//set price
 				setPriceStack = new ItemStack(Material.SIGN);
 				ItemMeta setPriceMeta = setPriceStack.getItemMeta();
 				ArrayList<String> priceLore = new ArrayList<String>();
@@ -116,6 +126,15 @@ public class SaveKitUI implements Listener{
 				setPriceMeta.setDisplayName(new Lang().getText("gui.setting.setPrice"));
 				setPriceStack.setItemMeta(setPriceMeta);
 			}
+			
+			//set cooldown
+			setCooldownStack = new ItemStack(Material.SIGN);
+			ItemMeta setCooldownMeta = setCooldownStack.getItemMeta();
+			ArrayList<String> coolLore = new ArrayList<String>();
+			coolLore.add(new Lang().getText("kit.cooldown") + "0");
+			setCooldownMeta.setLore(coolLore);
+			setCooldownMeta.setDisplayName(new Lang().getText("gui.setting.setCooldown"));
+			setCooldownStack.setItemMeta(setCooldownMeta);
 			
 			sessions.put(p, new KitBuilder());
 		}
@@ -135,13 +154,15 @@ public class SaveKitUI implements Listener{
 		if(Eco.validVault()) {
 			i.setItem(2, setNameStack);
 			i.setItem(3, setIconStack);
+			i.setItem(4, setCooldownStack);
 			i.setItem(5, setReplaceStack);
 			i.setItem(6, setPriceStack);
 		}
 		else {
-			i.setItem(3, setNameStack);
-			i.setItem(4, setIconStack);
+			i.setItem(2, setNameStack);
+			i.setItem(3, setIconStack);
 			i.setItem(5, setReplaceStack);
+			i.setItem(6, setCooldownStack);
 		}
 		
 		i.setItem(8, finishStack);
@@ -189,6 +210,11 @@ public class SaveKitUI implements Listener{
 			else if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.setting.setPrice")) == 0) {
 				e.getWhoClicked().sendMessage(new Lang().getText("gui.setting.inputPrice"));
 				textInput.put(p, Purpose.PRICE);
+				p.closeInventory();
+			}
+			else if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.setting.setCooldown")) == 0) {
+				e.getWhoClicked().sendMessage(new Lang().getText("gui.setting.inputCooldown"));
+				textInput.put(p, Purpose.COOLDOWN);
 				p.closeInventory();
 			}
 			else if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.setting.finish")) == 0) {
@@ -258,12 +284,25 @@ public class SaveKitUI implements Listener{
 				}.runTaskLater(plugin, 1);
 				textInput.remove(p);
 			}
+			else if(textInput.get(p) == Purpose.COOLDOWN) {
+				e.setCancelled(true);
+				int cooldown = Integer.parseInt(e.getMessage());
+				kb.setCooldown(cooldown);
+				new BukkitRunnable() {
+					@Override
+					public void run() {
+						openSaveKitGUI(p);
+					}
+				}.runTaskLater(plugin, 1);
+				textInput.remove(p);
+			}
 		}
 	}
 	
 	public enum Purpose {
 		NAME,
 		ICON,
+		COOLDOWN,
 		PRICE
 	}
 }

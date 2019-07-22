@@ -3,6 +3,7 @@ package com.DisabledMallis.KitEngine.API;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.DisabledMallis.KitEngine.Cooldown.CooldownStorage;
 import com.DisabledMallis.KitEngine.Economy.Eco;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
 
@@ -33,6 +34,11 @@ public class KitAPI {
 				}
 			}
 		}
+	}
+	
+	public void initCooldown(KitData kit, Player player) {
+		CooldownStorage cs = new CooldownStorage(player);
+		cs.setCooldown(kit.getName(), kit.getCooldown());
 	}
 	
 	public void sellKit(KitData kit, Player player) {

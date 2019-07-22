@@ -25,6 +25,7 @@ public class KitData {
 	Material icon = Material.DIAMOND_BLOCK;
 	Boolean addToInventory = false;
 	double Price = 0;
+	int cooldown;
 	
 	File fcf;
 	FileConfiguration fc;
@@ -65,7 +66,12 @@ public class KitData {
 			new Log(new Lang().getText("error.namechanged"));
 			valid = false;
 		}
-		
+		if(fc.isSet(kitName + ".Cooldown")) {
+			this.cooldown = fc.getInt(kitName + ".Cooldown");
+		}
+		else {
+			fc.set(kitName + ".Cooldown", cooldown);
+		}
 	}
 
 	/*
@@ -109,15 +115,20 @@ public class KitData {
 		return (ArrayList<ItemStack>) fc.get(kitName + ".Contents");
 	}
 	public ItemStack[] getContentsArray() {
-		ItemStack[] arr;
-		if(Bukkit.getBukkitVersion().contains("1.8")) {
-			arr = new ItemStack[36];
-		} else {
-			arr = new ItemStack[40];
+		if(isSafe()) {
+			ItemStack[] arr;
+			if(Bukkit.getBukkitVersion().contains("1.8")) {
+				arr = new ItemStack[36];
+			} else {
+				arr = new ItemStack[40];
+			}
+			List<?> list = fc.getList(kitName + ".Contents");
+			arr = list.toArray(arr);
+			return arr;
 		}
-		List<?> list = fc.getList(kitName + ".Contents");
-		arr = list.toArray(arr);
-		return arr;
+		else {
+			return null;
+		}
 	}
 	
 	/*
@@ -155,6 +166,9 @@ public class KitData {
 		return icon;
 	}
 	
+	/*
+	 * Price
+	 */
 	public Boolean hasPrice() {
 		return fc.isSet(kitName + ".Price");
 	}
@@ -178,10 +192,40 @@ public class KitData {
 		return this.Price;
 	}
 	
+	/*
+	 * Cooldown
+	 */
+	public void setCooldown(int cooldown) {
+		this.cooldown = cooldown;
+		fc.set(this.kitName + ".Cooldown", this.cooldown);
+		try {
+			fc.save(fcf);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public int getCooldown() {
+		this.cooldown = fc.getInt(kitName + ".Cooldown");
+		fc.set(kitName + ".Cooldown", this.cooldown);
+		try {
+			fc.save(fcf);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return this.cooldown;
+	}
+	
+	/*
+	 * Delete
+	 */
 	public boolean delete() {
 		return fcf.delete();
 	}
 	public Boolean isSafe() {
 		return valid;
+	}
+
+	public String getName() {
+		return kitName;
 	}
 }

@@ -29,6 +29,7 @@ public class KitBuilder {
 	public Boolean replace = true;
 	Material icon = Material.DIAMOND;
 	double Price = 0;
+	int Cooldown = 0;
 	
 	public KitBuilder() {
 	}
@@ -75,6 +76,7 @@ public class KitBuilder {
 		fc.set(name + ".Icon", icon.name());
 		fc.set(name + ".addToInventory", !replace);
 		fc.set(name + ".Price", Price);
+		fc.set(name + ".Cooldown", Cooldown);
 		
 		try {
 			fc.save(fcf);
@@ -116,5 +118,13 @@ public class KitBuilder {
 	}
 	public double getPrice() {
 		return this.Price;
+	}
+	
+	public KitBuilder setCooldown(int Cooldown) {
+		this.Cooldown = Cooldown;
+		return this;
+	}
+	public int getCooldown() {
+		return this.Cooldown;
 	}
 }

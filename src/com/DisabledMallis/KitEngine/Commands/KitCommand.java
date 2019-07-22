@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.DisabledMallis.KitEngine.API.KitAPI;
+import com.DisabledMallis.KitEngine.Cooldown.CooldownStorage;
 import com.DisabledMallis.KitEngine.Economy.Eco;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
 import com.DisabledMallis.KitEngine.Language.Lang;
@@ -28,16 +29,30 @@ public class KitCommand implements CommandExecutor{
 					}
 					if(p.hasPermission("Kit.Use." + kitName)) {
 						KitData kd = new KitData(kitName);
-						if(Eco.validVault()) {
-							if(kd.hasPrice()) {
-								api.sellKit(kd, p);
+						if(kd.isSafe()) {
+							CooldownStorage cs = new CooldownStorage(p);
+							if(cs.getCooldown(kitName) > 0) {
+								p.sendMessage(new Lang().getText("error.cooldown"));
 							}
 							else {
-								api.giveKit(kd, p);
+								if(kd.getCooldown() > 0) {
+									cs.setCooldown(kitName, kd.getCooldown());
+								}
+								if(Eco.validVault()) {
+									if(kd.hasPrice()) {
+										api.sellKit(kd, p);
+									}
+									else {
+										api.giveKit(kd, p);
+									}
+								}
+								else {
+									api.giveKit(kd, p);
+								}
 							}
 						}
 						else {
-							api.giveKit(kd, p);
+							p.sendMessage(new Lang().getText("kit.missing"));
 						}
 					}
 					else {

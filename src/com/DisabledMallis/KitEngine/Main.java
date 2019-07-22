@@ -14,8 +14,10 @@ import com.DisabledMallis.KitEngine.Commands.DebugCommand;
 import com.DisabledMallis.KitEngine.Commands.KitCommand;
 import com.DisabledMallis.KitEngine.Commands.KitsCommand;
 import com.DisabledMallis.KitEngine.Commands.SaveKits;
+import com.DisabledMallis.KitEngine.Cooldown.CooldownUpdate;
 import com.DisabledMallis.KitEngine.Economy.Eco;
 import com.DisabledMallis.KitEngine.KitGui.KitGuiClick;
+import com.DisabledMallis.KitEngine.KitGui.KitUI;
 import com.DisabledMallis.KitEngine.KitGui.SaveKitUI;
 import com.DisabledMallis.KitEngine.Language.Lang;
 import com.DisabledMallis.KitEngine.Stats.MetricsLite;
@@ -46,14 +48,19 @@ public class Main extends JavaPlugin{
 		getCommand("kits").setExecutor(new KitsCommand());
 		getCommand("debug").setExecutor(new DebugCommand());
 		
-		Bukkit.getPluginManager().registerEvents(new KitGuiClick(), this);		
+		Bukkit.getPluginManager().registerEvents(new KitGuiClick(), this);
 		Bukkit.getPluginManager().registerEvents(new SaveKitUI(), this);
+		Bukkit.getPluginManager().registerEvents(new KitUI(), this);
+		
+		KitUI.guiUpdater();
 		
 		if(Eco.validVault()) {
 			new Log("Vault found!");
 		} else {
 			new Log("Vault not found, Vault features disabled.");
 		}
+		
+		new CooldownUpdate().runTaskTimer(this, 0, 20);
 		
 		new Log(new Lang().getText("plugin.loaded"));
 	}
