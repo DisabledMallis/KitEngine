@@ -7,24 +7,38 @@
 gui:
   title: "&aKits"
   setting:
-    setName: "&aMetti Nome"
-    setIcon: "&aMetti l'icona"
+    setName: "&aImposta nome"
+    setIcon: "&aImposta l'icona"
     setReplace: "&aSostituisci l'inventario?"
-    finish: "&aFinito!"
+    setPrice: "&aImposta Costo"
+    setCooldown: "&aImposta Cooldown"
+    finish: "&aFinire!"
     cancel: "&cAnulla"
-    inputName: "&aDigita il nome nel chat"
-    inputIcon: "&aDigita il nome dell'oggetto per l'icona nel chat. (ex. diamond_sword)"
+    inputName: "&aDigita il nome di kit"
+    inputIcon: "&aDigita l'icona. (ex. diamond_sword)"
+    inputCooldown: "&aDigita la valore della cooldown. (ex. 1000)"
   savetitle: "&aSalva kit"
 kit:
   loaded: "&aKit ottenuto!"
   saved: "&aKit salvato!"
   unfinished: "&cNon hai finito il kit!"
-  canceled: "&cLa creazione di kit annullato!"
+  canceled: "&cKit creazione annullato!"
+  cooldown: "&aCooldown: "
+  cooldownRemaining: "&cCooldown rimasto: "
+eco:
+  price: "&aCosta: &e"
+  charged: "&aHai speso €"
 plugin:
   loading: "Caricamento plugin..."
-  loaded: "Plugin caricato!"
-  approve: "&aSi"
+  loaded: "Caricato il plugin!"
+  approve: "&aSì"
   deny: "&cNo"
 error:
-  permission: "&cNon hai i permessi per l'azione!"
-  disable: "se il plugin e non funziona per errore, dimmi qui: https://github.com/DisabledMallis/KitEngine/issues"
+  permission: "&cNon hai il permesso per l'azione!"
+  noeco: "&4Vault provider is NULL! KitEngine won't work as expected!"
+  corrupted: "&cQuesto kit è corrotto!"
+  cooldown: "&cDevi aspettare prima usare il kit ancora!"
+  disable: "Se il plugin e non funziona per errore, dimmi qui: https://github.com/DisabledMallis/KitEngine/issues"
+command:
+  kit:
+    usage: "&cUtilizzo: /kit <kitname>"

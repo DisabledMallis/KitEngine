@@ -11,28 +11,33 @@ gui:
     setIcon: "&aSet Icon"
     setReplace: "&aReplace Inventory?"
     setPrice: "&aSet Price"
+    setCooldown: "&aSet Cooldown"
     finish: "&aFinish!"
     cancel: "&cCancel"
     inputName: "&aType the kit name in chat like any other message"
     inputIcon: "&aType an item name in chat like any other message. (ex. diamond_sword)"
+    inputCooldown: "&aType the kit cooldown in chat like any other message. (ex. 1000)"
   savetitle: "&aSave kit"
 kit:
   loaded: "&aKit acquired!"
   saved: "&aKit saved!"
   unfinished: "&cYou have not finished the kit!"
   canceled: "&cKit creation canceled!"
+  cooldown: "&aCooldown: "
+  cooldownRemaining: "&cCooldown left: "
+eco:
+  price: "&aPrice: &e"
+  charged: "&aYou were charged $"
 plugin:
   loading: "Loading plugin..."
   loaded: "Loaded plugin!"
   approve: "&aYes"
   deny: "&cNo"
-eco:
-  price: "&aPrice: &e"
-  charged: "&aYou were charged $"
 error:
   permission: "&cYou do not have permission to use this!"
   noeco: "&4Vault provider is NULL! KitEngine won't work as expected!"
   corrupted: "&cThis kit is corrupted!"
+  cooldown: "&cYou must wait before using this kit again!"
   disable: "if the plugin was disabled due to an error, please report it here: https://github.com/DisabledMallis/KitEngine/issues"
 command:
   kit:
