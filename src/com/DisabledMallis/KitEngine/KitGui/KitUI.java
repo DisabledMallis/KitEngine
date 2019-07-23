@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.DisabledMallis.KitEngine.Main;
+import com.DisabledMallis.KitEngine.Configuration.ConfigHandler;
 import com.DisabledMallis.KitEngine.Cooldown.CooldownStorage;
 import com.DisabledMallis.KitEngine.Economy.Eco;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
@@ -31,7 +32,8 @@ public class KitUI implements Listener{
 		 * Slots to add = 9-size
 		 * Determine how many slots we need.
 		 */
-		int size = 9*6;
+		ConfigHandler ch = new ConfigHandler();
+		int size = 9*ch.getGuiSize();
 		Inventory i = Bukkit.createInventory(null, size, new Lang().getText("gui.title"));
 		updateGui(p, i);
 		p.openInventory(i);

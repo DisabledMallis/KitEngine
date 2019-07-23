@@ -29,6 +29,7 @@ public class Main extends JavaPlugin{
 		new MetricsLite(this);
 		
 		File lang = new File(getDataFolder() + "/lang.yml");
+		File config = new File(getDataFolder() + "/config.yml");
 		File kitDir = new File(getDataFolder() + "/Kits/");
 		if(!getDataFolder().exists()) {
 			getDataFolder().mkdir();
@@ -41,6 +42,12 @@ public class Main extends JavaPlugin{
 			InputStream stream = getResource("lang.yml");
 			copy(stream, lang.getPath());
 			new Log("lang.yml!");
+		}
+		if(!config.exists()) {
+			new Log("config.yml...");
+			InputStream stream = getResource("config.yml");
+			copy(stream, config.getPath());
+			new Log("config.yml!");
 		}
 		
 		getCommand("savekit").setExecutor(new SaveKits());

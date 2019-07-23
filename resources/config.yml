@@ -1,0 +1,4 @@
+#KitEngine configuration (English)
+
+#The size of the kit gui in rows. The maximum value is 6, anything higher will cause a NullPointerException
+KitsGuiSize: 6

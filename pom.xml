@@ -12,6 +12,7 @@
         <includes>
           <include>plugin.yml</include>
           <include>lang.yml</include>
+          <include>config.yml</include>
         </includes>
       </resource>
     </resources>

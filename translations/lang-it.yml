@@ -25,6 +25,7 @@ kit:
   canceled: "&cKit creazione annullato!"
   cooldown: "&aCooldown: "
   cooldownRemaining: "&cCooldown rimasto: "
+  missing: "&cIl kit non esiste!"
 eco:
   price: "&aCosta: &e"
   charged: "&aHai speso €"
