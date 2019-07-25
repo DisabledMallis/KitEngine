@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +19,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.DisabledMallis.KitEngine.Main;
 import com.DisabledMallis.KitEngine.API.KitBuilder;
 import com.DisabledMallis.KitEngine.Economy.Eco;
+import com.DisabledMallis.KitEngine.IconGUI.Page;
 import com.DisabledMallis.KitEngine.KitManager.KitData;
 import com.DisabledMallis.KitEngine.Language.Lang;
 import com.google.common.primitives.Doubles;
@@ -186,9 +188,12 @@ public class SaveKitUI implements Listener{
 				p.closeInventory();
 			}
 			else if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.setting.setIcon")) == 0) {
+				/*
 				e.getWhoClicked().sendMessage(new Lang().getText("gui.setting.inputIcon"));
 				textInput.put(p, Purpose.ICON);
 				p.closeInventory();
+				*/
+				IconSelect.openGui(p);
 			}
 			else if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.setting.setReplace")) == 0) {
 				if(kb.replace) {
@@ -252,6 +257,7 @@ public class SaveKitUI implements Listener{
 				}.runTaskLater(plugin, 1);
 				textInput.remove(p);
 			}
+			/*
 			else if(textInput.get(p) == Purpose.ICON) {
 				try {
 					Material mat = Material.valueOf(e.getMessage().toUpperCase());
@@ -272,6 +278,7 @@ public class SaveKitUI implements Listener{
 				}.runTaskLater(plugin, 1);
 				textInput.remove(p);
 			}
+			*/
 			else if(textInput.get(p) == Purpose.PRICE) {
 				e.setCancelled(true);
 				double price = Doubles.tryParse(e.getMessage());
@@ -304,5 +311,84 @@ public class SaveKitUI implements Listener{
 		ICON,
 		COOLDOWN,
 		PRICE
+	}
+	
+	public static class IconSelect implements Listener{
+		
+		static ArrayList<Page> pages = new ArrayList<>();
+		static HashMap<Player, Integer> currentPage = new HashMap<>();
+		
+		public static void openGui(Player p) {
+			int slot = 0;
+			int page = 1;
+			Inventory i = Bukkit.createInventory(null, 9*6, new Lang().getText("gui.saveIcon") + " - " + page);
+			for(Material m : Material.values()) {
+				slot++;
+				if(slot > 45) {
+					pages.add(new Page(i, page));
+					i = Bukkit.createInventory(null, 9*6, new Lang().getText("gui.saveIcon") + " - " + (page + 1));
+					slot = 0;
+					page++;
+				}
+				else {
+					i.addItem(new ItemStack(m));
+				}
+			}
+			currentPage.put(p, 0);
+			p.openInventory(pages.get(0).getInventory());
+		}
+		
+		@EventHandler
+		public void onOpen(InventoryOpenEvent e) {
+			Player p = (Player) e.getPlayer();
+			Inventory i = e.getView().getTopInventory();
+			if(e.getView().getTitle().startsWith(new Lang().getText("gui.saveIcon"))) {
+				ItemStack nextPageStack = new ItemStack(Material.DIAMOND_BLOCK);
+				ItemMeta nextPageMeta = nextPageStack.getItemMeta();
+				nextPageMeta.setDisplayName(new Lang().getText("gui.nextPage"));
+				nextPageStack.setItemMeta(nextPageMeta);
+				
+				ItemStack prevPageStack = new ItemStack(Material.DIAMOND_BLOCK);
+				ItemMeta prevPageMeta = prevPageStack.getItemMeta();
+				prevPageMeta.setDisplayName(new Lang().getText("gui.prevPage"));
+				prevPageStack.setItemMeta(prevPageMeta);
+				
+				if(currentPage.get(p) < pages.size() - 1) {
+					i.setItem(51, nextPageStack);
+				}
+				if(currentPage.get(p) > 0) {
+					i.setItem(47, prevPageStack);
+				}
+			}
+		}
+		@EventHandler
+		public void onClick(InventoryClickEvent e) {
+			Player p = (Player) e.getWhoClicked();
+			if(e.getView().getTitle().startsWith(new Lang().getText("gui.saveIcon"))) {
+				e.setCancelled(true);
+				if(e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR) {
+					return;
+				}
+				else if(e.getCurrentItem().hasItemMeta()) {
+					if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.nextPage")) == 0) {
+						currentPage.put(p, currentPage.get((Player) e.getWhoClicked()) + 1);
+						p.openInventory(pages.get(currentPage.get(p)).getInventory());
+					}
+					else if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.prevPage")) == 0) {
+						currentPage.put(p, currentPage.get(p) - 1);
+						p.openInventory(pages.get(currentPage.get(p)).getInventory());
+					}
+				}
+				else {
+					sessions.get(p).setIcon(e.getCurrentItem().getType());
+					new BukkitRunnable() {
+						@Override
+						public void run() {
+							openSaveKitGUI(p);
+						}
+					}.runTaskLater(plugin, 1);
+				}
+			}
+		}
 	}
 }

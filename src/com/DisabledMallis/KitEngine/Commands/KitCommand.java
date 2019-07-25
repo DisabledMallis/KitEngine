@@ -19,7 +19,7 @@ public class KitCommand implements CommandExecutor{
 			Player p = (Player) sender;
 			if(p.hasPermission("kit.use")) {
 				if(args.length == 0) {
-					p.sendMessage(new Lang().getText("command.kit.usage"));
+					p.performCommand("kits");
 				}
 				else if(args.length == 1) {
 					String kitName = args[0];

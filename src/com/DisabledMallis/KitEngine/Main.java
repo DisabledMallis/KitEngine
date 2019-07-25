@@ -58,6 +58,7 @@ public class Main extends JavaPlugin{
 		Bukkit.getPluginManager().registerEvents(new KitGuiClick(), this);
 		Bukkit.getPluginManager().registerEvents(new SaveKitUI(), this);
 		Bukkit.getPluginManager().registerEvents(new KitUI(), this);
+		Bukkit.getPluginManager().registerEvents(new SaveKitUI.IconSelect(), this);
 		
 		KitUI.guiUpdater();
 		

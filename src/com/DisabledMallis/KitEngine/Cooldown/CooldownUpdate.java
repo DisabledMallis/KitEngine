@@ -29,7 +29,6 @@ public class CooldownUpdate extends BukkitRunnable{
 							fc.set(kit.getName(), time);
 							try {
 								fc.save(f);
-								new Log(time);
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
