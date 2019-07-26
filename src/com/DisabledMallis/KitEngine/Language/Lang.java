@@ -24,6 +24,9 @@ public class Lang {
 	public String getText(String id) {
 		fc = YamlConfiguration.loadConfiguration(fcf);
 		if(fc.getString(id) != null) {
+			if(fc.isSet("prefix")) {
+				return fc.getString(id).replace('&', '§').replaceAll("%prefix%", fc.getString("prefix"));
+			}
 			return fc.getString(id).replace('&', '§');
 		}
 		else {

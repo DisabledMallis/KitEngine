@@ -3,7 +3,7 @@
 #please use & for colors (ex. &a is green)
 
 #for other translations check here: https://github.com/DisabledMallis/KitEngine/tree/master/translations
-
+prefix: ""
 gui:
   title: "&aKits"
   setting:
