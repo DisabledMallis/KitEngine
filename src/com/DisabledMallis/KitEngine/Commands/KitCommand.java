@@ -60,7 +60,7 @@ public class KitCommand implements CommandExecutor{
 					}
 				}
 				else {
-					new Lang().getText("error.usage.kit");
+					new Lang().getText("command.kit.usage");
 				}
 			}
 			else {

@@ -16,10 +16,15 @@ gui:
     cancel: "&cCancel"
     inputName: "&aType the kit name in chat like any other message"
     inputIcon: "&aType an item name in chat like any other message. (ex. diamond_sword)"
+    inputPrice: "&aType the kit price in chat like any other message. (ex. 1000)"
     inputCooldown: "&aType the kit cooldown in chat like any other message. (ex. 1000)"
   savetitle: "&aSave kit"
   edittitle: "&aEdit kit GUI"
   saved: "&aGui saved!"
+  
+  saveIcon: "&aSelect icon"
+  nextPage: "&aNext Page"
+  prevPage: "&aPrevious Page"
 kit:
   loaded: "&aKit acquired!"
   saved: "&aKit saved!"
@@ -37,11 +42,13 @@ plugin:
   approve: "&aYes"
   deny: "&cNo"
 error:
+  namechanged: "&cA kit was requested but the namespace was changed!"
   notaplayer: "&cOnly players have access to this command!"
   permission: "&cYou do not have permission to use this!"
   noeco: "&4Vault provider is NULL! KitEngine won't work as expected!"
   corrupted: "&cThis kit is corrupted!"
   cooldown: "&cYou must wait before using this kit again!"
+  cooldownDir: "&cCooldown data corrupted!"
   disable: "if the plugin was disabled due to an error, please report it here: https://github.com/DisabledMallis/KitEngine/issues"
   nocustgui: "&cNo custom gui found! use '/EditKitGui New' to create one."
 command:
