@@ -76,7 +76,16 @@ public class KitUI implements Listener{
 			if(p.hasPermission("Kit.Use." + kit.getName())) {
 				KitData kd = new KitData(kit.getName());
 				if(kd.isSafe()) {
-					i.addItem(cku.getKitItem(kd.getName(), p));
+					if(kd.isSafe()) {
+						i.addItem(cku.getKitItem(kd.getName(), p));
+					}
+					else {
+						ItemStack corruptedStack = new ItemStack(Material.BARRIER);
+						ItemMeta corruptedMeta = corruptedStack.getItemMeta();
+						corruptedMeta.setDisplayName(new Lang().getText("error.corrupted"));
+						corruptedStack.setItemMeta(corruptedMeta);
+						i.addItem(corruptedStack);
+					}
 				}
 				else {
 					ItemStack corruptedStack = new ItemStack(Material.BARRIER);
@@ -95,7 +104,17 @@ public class KitUI implements Listener{
 		i.setContents(c.getContents());
 		for (File kit : KitsDir.listFiles()) {
 			if(p.hasPermission("Kit.Use." + kit.getName())) {
-				i.setItem(cku.getKitSlot(kit.getName()), cku.getKitItem(kit.getName(), p));
+				KitData kd = new KitData(kit.getName());
+				if(kd.isSafe()) {
+					i.setItem(cku.getKitSlot(kit.getName()), cku.getKitItem(kit.getName(), p));
+				}
+				else {
+					ItemStack corruptedStack = new ItemStack(Material.BARRIER);
+					ItemMeta corruptedMeta = corruptedStack.getItemMeta();
+					corruptedMeta.setDisplayName(new Lang().getText("error.corrupted"));
+					corruptedStack.setItemMeta(corruptedMeta);
+					i.addItem(corruptedStack);
+				}
 			}
 		}
 	}
@@ -118,15 +137,24 @@ public class KitUI implements Listener{
 					return;
 				}
 				else {
-					Player p = (Player) e.getWhoClicked();
-					String name;
-					try {
-						name = e.getCurrentItem().getItemMeta().getDisplayName().substring(2);
+					Boolean isKit = false;
+					File KitsDir = new File(plugin.getDataFolder() + "/Kits/");
+					for (File kit : KitsDir.listFiles()) {
+						if(e.getRawSlot() == cku.getKitSlot(kit.getName())) {
+							isKit = true;
+						}
 					}
-					catch (StringIndexOutOfBoundsException ex) {
-						name = e.getCurrentItem().getItemMeta().getDisplayName();
+					if(isKit) {
+						Player p = (Player) e.getWhoClicked();
+						String name;
+						try {
+							name = e.getCurrentItem().getItemMeta().getDisplayName().substring(2);
+						}
+						catch (StringIndexOutOfBoundsException ex) {
+							name = e.getCurrentItem().getItemMeta().getDisplayName();
+						}
+						p.performCommand("kit " + name);
 					}
-					p.performCommand("kit " + name);
 				}
 			}
 		}

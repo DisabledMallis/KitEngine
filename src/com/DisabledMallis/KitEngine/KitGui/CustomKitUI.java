@@ -88,7 +88,7 @@ public class CustomKitUI {
 		ArrayList<ItemStack> stacks = (ArrayList<ItemStack>) fc.get("GUI.Inventory");
 		ItemStack[] arrstacks = new ItemStack[size];
 		arrstacks = stacks.toArray(arrstacks);
-		Inventory i = Bukkit.createInventory(null, size, new Lang().getText("kit.edittitle"));
+		Inventory i = Bukkit.createInventory(null, size, new Lang().getText("gui.edittitle"));
 		i.setContents(arrstacks);
 		File KitsDir = new File(plugin.getDataFolder() + "/Kits/");
 		for (File kit : KitsDir.listFiles()) {
@@ -140,7 +140,7 @@ public class CustomKitUI {
 	public Inventory newGui() {
 		ConfigHandler ch = new ConfigHandler();
 		int size = 9*ch.getGuiSize();
-		Inventory i = Bukkit.createInventory(null, size, new Lang().getText("kit.edittitle"));
+		Inventory i = Bukkit.createInventory(null, size, new Lang().getText("gui.edittitle"));
 		KitUI.legacyUpdateGui(p, i);
 		return i;
 	}
@@ -150,7 +150,7 @@ public class CustomKitUI {
 		public void onClose(InventoryCloseEvent e) throws IOException {
 			Player p = (Player) e.getPlayer();
 			
-			if(e.getView().getTitle().compareTo(new Lang().getText("kit.edittitle")) == 0) {
+			if(e.getView().getTitle().compareTo(new Lang().getText("gui.edittitle")) == 0) {
 				Inventory i = e.getView().getTopInventory();
 				CustomKitUI cku = new CustomKitUI(p);
 				cku.saveGui(i);
@@ -163,7 +163,7 @@ public class CustomKitUI {
 			File fcf = new File(plugin.getDataFolder() + "/GUI","GUI.yml");
 			YamlConfiguration fc = YamlConfiguration.loadConfiguration(fcf);
 			
-			if(e.getView().getTitle().compareTo(new Lang().getText("kit.edittitle")) == 0) {
+			if(e.getView().getTitle().compareTo(new Lang().getText("gui.edittitle")) == 0) {
 				if(e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR || !e.getCurrentItem().hasItemMeta()) {
 					return;
 				}

@@ -44,7 +44,7 @@ public class KitData {
 				try {
 					this.icon = Material.valueOf(fc.getString(this.kitName + ".Icon"));
 				}
-				catch (IllegalArgumentException e) {
+				catch (IllegalArgumentException | NullPointerException e ) {
 					valid = false;
 				}
 				this.addToInventory = fc.getBoolean(this.kitName + ".addToInventory");
