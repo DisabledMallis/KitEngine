@@ -21,6 +21,9 @@ commands:
     usage: /kits
     permission: kit.save
     description: Access to /kits, the kits gui.
+  editkitgui:
+    usage: /editkitsgui
+    description: Edit the /kits gui
 permissions:
   kit.*:
     description: gives access to all kit commands
@@ -42,4 +45,7 @@ permissions:
   kit.use.*:
     description: permission for all kits
     default: true
+  kit.editgui:
+    description: permission to edit the /kits gui
+    default: op
   

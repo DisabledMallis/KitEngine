@@ -11,12 +11,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.DisabledMallis.KitEngine.Commands.DebugCommand;
+import com.DisabledMallis.KitEngine.Commands.EditKitCommand;
 import com.DisabledMallis.KitEngine.Commands.KitCommand;
 import com.DisabledMallis.KitEngine.Commands.KitsCommand;
 import com.DisabledMallis.KitEngine.Commands.SaveKits;
 import com.DisabledMallis.KitEngine.Cooldown.CooldownUpdate;
 import com.DisabledMallis.KitEngine.Economy.Eco;
-import com.DisabledMallis.KitEngine.KitGui.KitGuiClick;
+import com.DisabledMallis.KitEngine.KitGui.CustomKitUI;
 import com.DisabledMallis.KitEngine.KitGui.KitUI;
 import com.DisabledMallis.KitEngine.KitGui.SaveKitUI;
 import com.DisabledMallis.KitEngine.Language.Lang;
@@ -54,11 +55,13 @@ public class Main extends JavaPlugin{
 		getCommand("kit").setExecutor(new KitCommand());
 		getCommand("kits").setExecutor(new KitsCommand());
 		getCommand("debug").setExecutor(new DebugCommand());
+		getCommand("editkitgui").setExecutor(new EditKitCommand());
 		
-		Bukkit.getPluginManager().registerEvents(new KitGuiClick(), this);
+		Bukkit.getPluginManager().registerEvents(new KitUI.KitGuiClick(), this);
 		Bukkit.getPluginManager().registerEvents(new SaveKitUI(), this);
 		Bukkit.getPluginManager().registerEvents(new KitUI(), this);
 		Bukkit.getPluginManager().registerEvents(new SaveKitUI.IconSelect(), this);
+		Bukkit.getPluginManager().registerEvents(new CustomKitUI.Events(), this);
 		
 		KitUI.guiUpdater();
 		

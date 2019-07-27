@@ -36,41 +36,32 @@ public class KitData {
 		fcf = new File(plugin.getDataFolder() + "/Kits/" + kitName);
 		
 		/*
-		 * Create the file
-		 */
-		try {
-			fcf.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		/*
 		 * Ensure it exists
 		 */
-		if(exists()) {
+		if(fcf.exists()) {
 			fc = YamlConfiguration.loadConfiguration(fcf);
-		}
-		else {
-			valid = false;
-		}
-		if(fc.isSet(kitName)) {
-			try {
-				this.icon = Material.valueOf(fc.getString(this.kitName + ".Icon"));
+			if(fc.isSet(kitName)) {
+				try {
+					this.icon = Material.valueOf(fc.getString(this.kitName + ".Icon"));
+				}
+				catch (IllegalArgumentException e) {
+					valid = false;
+				}
+				this.addToInventory = fc.getBoolean(this.kitName + ".addToInventory");
 			}
-			catch (IllegalArgumentException e) {
+			else {
+				new Log(new Lang().getText("error.namechanged"));
 				valid = false;
 			}
-			this.addToInventory = fc.getBoolean(this.kitName + ".addToInventory");
+			if(fc.isSet(kitName + ".Cooldown")) {
+				this.cooldown = fc.getInt(kitName + ".Cooldown");
+			}
+			else {
+				fc.set(kitName + ".Cooldown", cooldown);
+			}
 		}
 		else {
-			new Log(new Lang().getText("error.namechanged"));
 			valid = false;
-		}
-		if(fc.isSet(kitName + ".Cooldown")) {
-			this.cooldown = fc.getInt(kitName + ".Cooldown");
-		}
-		else {
-			fc.set(kitName + ".Cooldown", cooldown);
 		}
 	}
 
@@ -129,13 +120,6 @@ public class KitData {
 		else {
 			return null;
 		}
-	}
-	
-	/*
-	 * Check if the file exists
-	 */
-	public boolean exists() {
-		return fcf.exists();
 	}
 	
 	public void setIcon(Material icon) {

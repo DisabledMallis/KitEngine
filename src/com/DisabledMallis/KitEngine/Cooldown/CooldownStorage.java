@@ -17,7 +17,11 @@ public class CooldownStorage {
 	FileConfiguration fc;
 	
 	public CooldownStorage(Player p) {
-		fcf = new File(plugin.getDataFolder() + "/Cooldowns/" + p.getUniqueId() + ".yml");
+		fcf = new File(plugin.getDataFolder() + "/Cooldowns/", p.getUniqueId() + ".yml");
+		try {
+			fcf.createNewFile();
+		} catch (IOException e1) {
+		}
 		fc = YamlConfiguration.loadConfiguration(fcf);
 		fc.set("Player_Name", p.getName());
 		try {

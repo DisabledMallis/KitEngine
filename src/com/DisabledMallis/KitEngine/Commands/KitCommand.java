@@ -67,6 +67,9 @@ public class KitCommand implements CommandExecutor{
 				p.sendMessage(new Lang().getText("error.permission"));
 			}
 		}
+		else {
+			sender.sendMessage(new Lang().getText("error.notaplayer"));
+		}
 		return true;
 	}
 }
