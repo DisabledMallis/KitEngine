@@ -42,6 +42,7 @@ plugin:
   approve: "&aYes"
   deny: "&cNo"
 error:
+  itemmissing: "&cThat item doesn't exist!"
   namechanged: "&cA kit was requested but the namespace was changed!"
   notaplayer: "&cOnly players have access to this command!"
   permission: "&cYou do not have permission to use this!"
@@ -54,3 +55,7 @@ error:
 command:
   kit:
     usage: "&cUsage: /kit <kitname>"
+Forge:
+  check: "Checking for Forge..."
+  found: "Forge found! Assuming server is a Kettle server. Enabling Kettle compatability."
+  missing: "Server doesn't have Forge, compatability is not necessary."

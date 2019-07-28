@@ -77,14 +77,14 @@ public class Main extends JavaPlugin{
 		
 		new CooldownUpdate().runTaskTimer(this, 0, 20);
 		
-		new Log("Checking for Forge...");
+		new Log(new Lang().getText("Forge.check"));
 		try {
 			Class.forName("net.minecraftforge.common.ForgeVersion");
-			new Log("Forge found! Assuming server is a Kettle server. Enabling Kettle compatability.");
+			new Log(new Lang().getText("Forge.found"));
 			kc = new KettleCompat();
 		}
 		catch(ClassNotFoundException ex) {
-			new Log("Server doesn't have Forge, compatability is not necessary.");
+			new Log(new Lang().getText("Forge.missing"));
 		}
 		
 		new Log(new Lang().getText("plugin.loaded"));

@@ -269,7 +269,7 @@ public class SaveKitUI implements Listener{
 					kb.setIcon(Material.valueOf(e.getMessage().toUpperCase()));
 				}
 				catch (IllegalArgumentException | NullPointerException e1) {
-					p.sendMessage("§cThat item doesn't exist!");
+					p.sendMessage(new Lang().getText("error.itemmissing"));
 				}
 				e.setCancelled(true);
 				new BukkitRunnable() {

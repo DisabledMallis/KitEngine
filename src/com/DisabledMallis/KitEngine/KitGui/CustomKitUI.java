@@ -17,7 +17,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.DisabledMallis.KitEngine.Log;
 import com.DisabledMallis.KitEngine.Main;
 import com.DisabledMallis.KitEngine.Configuration.ConfigHandler;
 import com.DisabledMallis.KitEngine.Cooldown.CooldownStorage;
