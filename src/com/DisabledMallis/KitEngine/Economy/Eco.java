@@ -23,9 +23,7 @@ public class Eco {
 	public static void chargePlayer(OfflinePlayer p, double price) {
 		getEconomy().withdrawPlayer(p, price);
 		p.getPlayer().sendMessage(new Lang().getText("eco.charged") + price);
-	}
-	public static void chargePlayer(Player p, double price) {
-		//OfflinePlayer op = Bukkit.getOfflinePlayer(p.getUniqueId());
+	} public static void chargePlayer(Player p, double price) {
 		getEconomy().withdrawPlayer(p, price);
 		p.sendMessage(new Lang().getText("eco.charged") + price);
 	}

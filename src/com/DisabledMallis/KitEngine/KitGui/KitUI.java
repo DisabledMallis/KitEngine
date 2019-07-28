@@ -134,7 +134,6 @@ public class KitUI implements Listener{
 			if(e.getView().getTitle().equals(new Lang().getText("gui.title"))) {
 				e.setCancelled(true);
 				if(e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR || !e.getCurrentItem().hasItemMeta()) {
-					return;
 				}
 				else {
 					Boolean isKit = false;

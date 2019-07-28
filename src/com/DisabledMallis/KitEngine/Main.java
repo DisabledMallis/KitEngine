@@ -27,7 +27,7 @@ import com.DisabledMallis.KitEngine.Stats.MetricsLite;
 public class Main extends JavaPlugin{
 	
 	KettleCompat kc;
-	
+	@Override
 	public void onEnable() {
 		new Log(new Lang().getText("plugin.loading"));
 		
@@ -89,6 +89,7 @@ public class Main extends JavaPlugin{
 		
 		new Log(new Lang().getText("plugin.loaded"));
 	}
+	@Override
 	public void onDisable() {
 		new Log(new Lang().getText("error.disable"));
 	}
