@@ -29,6 +29,7 @@ public class SaveKitUI implements Listener{
 	static Main plugin = (Main) Bukkit.getPluginManager().getPlugin("KitEngine");
 	static HashMap<Player, KitBuilder> sessions = new HashMap<>(); //store sessions as a kitbuilder
 	static HashMap<Player, Purpose> textInput = new HashMap<>(); //if and which player is checking for input text
+	public static boolean isKettle = false;
 	
 	public static void openSaveKitGUI(Player p) {
 		Inventory i = Bukkit.createInventory(null, 9, new Lang().getText("gui.savetitle"));
@@ -188,12 +189,14 @@ public class SaveKitUI implements Listener{
 				p.closeInventory();
 			}
 			else if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.setting.setIcon")) == 0) {
-				/*
-				e.getWhoClicked().sendMessage(new Lang().getText("gui.setting.inputIcon"));
-				textInput.put(p, Purpose.ICON);
-				p.closeInventory();
-				*/
-				IconSelect.openGui(p);
+				if(!isKettle) {
+					IconSelect.openGui(p);
+				}
+				else {
+					e.getWhoClicked().sendMessage(new Lang().getText("gui.setting.inputIcon"));
+					textInput.put(p, Purpose.ICON);
+					p.closeInventory();
+				}
 			}
 			else if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.setting.setReplace")) == 0) {
 				if(kb.replace) {
@@ -257,7 +260,6 @@ public class SaveKitUI implements Listener{
 				}.runTaskLater(plugin, 1);
 				textInput.remove(p);
 			}
-			/*
 			else if(textInput.get(p) == Purpose.ICON) {
 				try {
 					Material mat = Material.valueOf(e.getMessage().toUpperCase());
@@ -278,7 +280,6 @@ public class SaveKitUI implements Listener{
 				}.runTaskLater(plugin, 1);
 				textInput.remove(p);
 			}
-			*/
 			else if(textInput.get(p) == Purpose.PRICE) {
 				e.setCancelled(true);
 				double price = Doubles.tryParse(e.getMessage());
@@ -323,15 +324,18 @@ public class SaveKitUI implements Listener{
 			int page = 1;
 			Inventory i = Bukkit.createInventory(null, 9*6, new Lang().getText("gui.saveIcon") + " - " + page);
 			for(Material m : Material.values()) {
-				slot++;
 				if(slot > 45) {
+					slot++;
 					pages.add(new Page(i, page));
 					i = Bukkit.createInventory(null, 9*6, new Lang().getText("gui.saveIcon") + " - " + (page + 1));
 					slot = 0;
 					page++;
 				}
 				else {
-					i.addItem(new ItemStack(m));
+					if(m != null) {
+						slot++;
+						i.addItem(new ItemStack(m));
+					}
 				}
 			}
 			currentPage.put(p, 0);

@@ -17,6 +17,7 @@ import com.DisabledMallis.KitEngine.Commands.KitsCommand;
 import com.DisabledMallis.KitEngine.Commands.SaveKits;
 import com.DisabledMallis.KitEngine.Cooldown.CooldownUpdate;
 import com.DisabledMallis.KitEngine.Economy.Eco;
+import com.DisabledMallis.KitEngine.Kettle.KettleCompat;
 import com.DisabledMallis.KitEngine.KitGui.CustomKitUI;
 import com.DisabledMallis.KitEngine.KitGui.KitUI;
 import com.DisabledMallis.KitEngine.KitGui.SaveKitUI;
@@ -24,6 +25,9 @@ import com.DisabledMallis.KitEngine.Language.Lang;
 import com.DisabledMallis.KitEngine.Stats.MetricsLite;
 
 public class Main extends JavaPlugin{
+	
+	KettleCompat kc;
+	
 	public void onEnable() {
 		new Log(new Lang().getText("plugin.loading"));
 		
@@ -72,6 +76,16 @@ public class Main extends JavaPlugin{
 		}
 		
 		new CooldownUpdate().runTaskTimer(this, 0, 20);
+		
+		new Log("Checking for Forge...");
+		try {
+			Class.forName("net.minecraftforge.common.ForgeVersion");
+			new Log("Forge found! Assuming server is a Kettle server. Enabling Kettle compatability.");
+			kc = new KettleCompat();
+		}
+		catch(ClassNotFoundException ex) {
+			new Log("Server doesn't have Forge, compatability is not necessary.");
+		}
 		
 		new Log(new Lang().getText("plugin.loaded"));
 	}

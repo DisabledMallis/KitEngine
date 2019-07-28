@@ -180,7 +180,6 @@ public class CustomKitUI {
 					}
 					KitData kd = new KitData(name);
 					if(kd.isSafe()) {
-						new Log(name);
 						fc.set("KitData." + name + ".slot", e.getRawSlot()-1);
 						fc.save(fcf);
 					}
