@@ -10,6 +10,7 @@ import java.nio.file.StandardCopyOption;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.DisabledMallis.HybridLib.Hybrid;
 import com.DisabledMallis.KitEngine.Commands.DebugCommand;
 import com.DisabledMallis.KitEngine.Commands.EditKitCommand;
 import com.DisabledMallis.KitEngine.Commands.KitCommand;
@@ -17,7 +18,6 @@ import com.DisabledMallis.KitEngine.Commands.KitsCommand;
 import com.DisabledMallis.KitEngine.Commands.SaveKits;
 import com.DisabledMallis.KitEngine.Cooldown.CooldownUpdate;
 import com.DisabledMallis.KitEngine.Economy.Eco;
-import com.DisabledMallis.KitEngine.Kettle.KettleCompat;
 import com.DisabledMallis.KitEngine.KitGui.CustomKitUI;
 import com.DisabledMallis.KitEngine.KitGui.KitUI;
 import com.DisabledMallis.KitEngine.KitGui.SaveKitUI;
@@ -26,7 +26,6 @@ import com.DisabledMallis.KitEngine.Stats.MetricsLite;
 
 public class Main extends JavaPlugin{
 	
-	KettleCompat kc;
 	@Override
 	public void onEnable() {
 		new Log(new Lang().getText("plugin.loading"));
@@ -77,15 +76,7 @@ public class Main extends JavaPlugin{
 		
 		new CooldownUpdate().runTaskTimer(this, 0, 20);
 		
-		new Log(new Lang().getText("Forge.check"));
-		try {
-			Class.forName("net.minecraftforge.common.ForgeVersion");
-			new Log(new Lang().getText("Forge.found"));
-			kc = new KettleCompat();
-		}
-		catch(ClassNotFoundException ex) {
-			new Log(new Lang().getText("Forge.missing"));
-		}
+		Hybrid.enableLib();
 		
 		new Log(new Lang().getText("plugin.loaded"));
 	}

@@ -5,6 +5,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.DisabledMallis.HybridLib.Hybrid;
+import com.DisabledMallis.HybridLib.Hybrid.HBL;
+import com.DisabledMallis.HybridLib.Hybrid.LavaVersion;
 import com.DisabledMallis.KitEngine.KitGui.CustomKitUI;
 import com.DisabledMallis.KitEngine.Language.Lang;
 
@@ -14,21 +17,27 @@ public class EditKitCommand implements CommandExecutor{
 		if(sender.hasPermission("kit.editgui")) {
 			if(sender instanceof Player) {
 				Player p = (Player) sender;
-				CustomKitUI cku = new CustomKitUI(p);
-				if(args.length < 1) {
-					try {
-						p.openInventory(cku.loadGui());
-					}
-					catch(NullPointerException e) {
-						p.performCommand("editkitgui new");
-					}
+				HBL lib = new Hybrid().new HBL();
+				if(lib.isLava(LavaVersion.MC1_12_2)) {
+					p.sendMessage(new Lang().getText("error.lavagui"));
 				}
 				else {
-					if(args[0].equalsIgnoreCase("new")) {
-						p.openInventory(cku.newGui());
+					CustomKitUI cku = new CustomKitUI(p);
+					if(args.length < 1) {
+						try {
+							p.openInventory(cku.loadGui());
+						}
+						catch(NullPointerException e) {
+							p.performCommand("editkitgui new");
+						}
 					}
-					if(args[0].equalsIgnoreCase("delete")) {
-						cku.delete();
+					else {
+						if(args[0].equalsIgnoreCase("new")) {
+							p.openInventory(cku.newGui());
+						}
+						if(args[0].equalsIgnoreCase("delete")) {
+							cku.delete();
+						}
 					}
 				}
 			}

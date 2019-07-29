@@ -16,6 +16,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.DisabledMallis.HybridLib.Hybrid;
+import com.DisabledMallis.HybridLib.Hybrid.HBL;
 import com.DisabledMallis.KitEngine.Main;
 import com.DisabledMallis.KitEngine.API.KitBuilder;
 import com.DisabledMallis.KitEngine.Economy.Eco;
@@ -29,8 +31,7 @@ public class SaveKitUI implements Listener{
 	static Main plugin = (Main) Bukkit.getPluginManager().getPlugin("KitEngine");
 	static HashMap<Player, KitBuilder> sessions = new HashMap<>(); //store sessions as a kitbuilder
 	static HashMap<Player, Purpose> textInput = new HashMap<>(); //if and which player is checking for input text
-	public static boolean isKettle = false;
-	
+
 	public static void openSaveKitGUI(Player p) {
 		Inventory i = Bukkit.createInventory(null, 9, new Lang().getText("gui.savetitle"));
 		
@@ -189,7 +190,8 @@ public class SaveKitUI implements Listener{
 				p.closeInventory();
 			}
 			else if(e.getCurrentItem().getItemMeta().getDisplayName().compareTo(new Lang().getText("gui.setting.setIcon")) == 0) {
-				if(!isKettle) {
+				HBL lib = new Hybrid().new HBL();
+				if(!lib.isKettle()) {
 					IconSelect.openGui(p);
 				}
 				else {

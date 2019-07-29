@@ -42,6 +42,7 @@ plugin:
   approve: "&aYes"
   deny: "&cNo"
 error:
+  lavagui: "&cLava has issues with the custom kit gui. To prevent errors this feature is disabled."
   itemmissing: "&cThat item doesn't exist!"
   namechanged: "&cA kit was requested but the namespace was changed!"
   notaplayer: "&cOnly players have access to this command!"
