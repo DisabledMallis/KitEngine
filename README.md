@@ -35,7 +35,7 @@ Paper, Spigot, Bukkit, Kettle & Lava
 
 
 ## Developer API
-to access the developer api, simply initialize the KitAPI class as such: [code]KitAPI api = new KitAPI();[/code]
+to access the developer api, simply initialize the KitAPI class as such: ``KitAPI api = new KitAPI();``
 
 ## Wiki
 for more information on using the plugin, there is a wiki available on Github.
