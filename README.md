@@ -1,4 +1,4 @@
-#Welcome to the KitEngine!
+*Welcome to the KitEngine!*
 
 If you encounter an error caused by the plugin, please report it to me on Discord or on Github.
 
